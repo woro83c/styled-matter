@@ -1,0 +1,20 @@
+{
+  "name": "styled-matter",
+  "version": "1.0.0",
+  "description": "One React component to style them all",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/woro83c/styled-matter.git"
+  },
+  "keywords": [],
+  "author": "Michael Worobec <woro83c@gmail.com> (https://woro83c.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/woro83c/styled-matter/issues"
+  },
+  "homepage": "https://github.com/woro83c/styled-matter#readme"
+}
