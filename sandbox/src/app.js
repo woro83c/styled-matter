@@ -1,7 +1,10 @@
 import React from 'react'
+import createMatter from 'styled-matter'
+
+const { H1 } = createMatter()
 
 function App() {
-  return <h1>Hello, world!</h1>
+  return <H1>Hello, world!</H1>
 }
 
 export default App
