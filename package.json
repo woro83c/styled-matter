@@ -16,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/woro83c/styled-matter/issues"
   },
-  "homepage": "https://github.com/woro83c/styled-matter#readme"
+  "homepage": "https://github.com/woro83c/styled-matter#readme",
+  "devDependencies": {
+    "eslint": "^6.7.1",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.17.0",
+    "prettier": "1.19.1"
+  }
 }
