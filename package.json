@@ -17,6 +17,9 @@
     "url": "https://github.com/woro83c/styled-matter/issues"
   },
   "homepage": "https://github.com/woro83c/styled-matter#readme",
+  "dependencies": {
+    "lodash.get": "^4.4.2"
+  },
   "devDependencies": {
     "@babel/cli": "^7.7.4",
     "@babel/core": "^7.7.4",
@@ -27,10 +30,9 @@
     "eslint-plugin-react": "^7.17.0",
     "prettier": "1.19.1"
   },
-  "dependencies": {
+  "peerDependencies": {
     "@emotion/core": "^10.0.22",
     "emotion-theming": "^10.0.19",
-    "lodash.get": "^4.4.2",
     "react": "^16.12.0"
   }
 }
