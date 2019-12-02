@@ -11,7 +11,7 @@ export default class Atom {
 
   create() {
     return jsx(this.element, {
-      children: this.props.children,
+      ...this.props,
       css: this.css(),
     })
   }
@@ -45,8 +45,11 @@ export default class Atom {
       const escapedExpression = this.escapeExpression(expression)
       const value = this.cssValue(escapedExpression, breakpoint)
 
-      // Require value
-      if (!value) {
+      /**
+       * Require value - loose equality operator allows for 0
+       * @example <H1 mb={0} />
+       */
+      if (value == null) {
         return prev
       }
 
