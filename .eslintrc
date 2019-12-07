@@ -18,6 +18,7 @@
   "plugins": ["react"],
   "rules": {
     "no-unused-vars": ["error", { "ignoreRestSiblings": true }],
-    "prefer-destructuring": "error"
+    "prefer-destructuring": "error",
+    "react/prop-types": "off"
   }
 }
