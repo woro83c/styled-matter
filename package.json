@@ -4,7 +4,8 @@
   "description": "One React component to style them all",
   "main": "dist/index.js",
   "scripts": {
-    "start": "babel src --watch --out-dir dist --presets=@babel/preset-env"
+    "dev": "babel src --watch --out-dir dist --presets=@babel/preset-env",
+    "build": "babel src --out-dir dist --presets=@babel/preset-env"
   },
   "repository": {
     "type": "git",
