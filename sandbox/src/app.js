@@ -19,13 +19,13 @@ function App() {
         <A
           href="https://github.com/woro83c/styled-matter#get-started"
           bg="primary"
-          borderRadius={4}
           color="white"
           display="inline-block"
           fontSize="..3.4"
           fontWeight="bold"
           px="6...7"
           py="3...4"
+          rounded={4}
           textDecoration="none"
         >
           Get started
