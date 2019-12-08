@@ -4,7 +4,7 @@ import defaultTheme from './default-theme'
 import tags, { acronyms } from './tags'
 import { createComponent, themeGet, upperFirst, useTheme } from './util'
 
-export default function createMatter(config) {
+export default function createUI(config) {
   const Matter = {}
 
   tags.forEach(tag => {
