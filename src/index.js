@@ -1,9 +1,8 @@
-import { useTheme } from 'emotion-theming'
 import Atom from './atom'
 import defaultConfig from './default-config'
 import defaultTheme from './default-theme'
 import tags, { acronyms } from './tags'
-import { createComponent, themeGet, upperFirst } from './util'
+import { createComponent, themeGet, upperFirst, useTheme } from './util'
 
 export default function createMatter(config) {
   const Matter = {}

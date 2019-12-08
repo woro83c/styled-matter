@@ -1,6 +1,6 @@
-import { useTheme } from 'emotion-theming'
+import { ThemeContext } from '@emotion/core'
 import get from 'lodash.get'
-import { createElement } from 'react'
+import { createElement, useContext } from 'react'
 import defaultTheme from './default-theme'
 
 export function createComponent({ type, props }) {
@@ -42,4 +42,8 @@ export function themeGet(path, defaultValue) {
 
 export function upperFirst(string) {
   return string.charAt(0).toUpperCase() + string.substring(1)
+}
+
+export function useTheme() {
+  return useContext(ThemeContext)
 }
