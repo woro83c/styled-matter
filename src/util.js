@@ -28,7 +28,7 @@ export function margin(value, scale) {
     parsed = themeGet(`${scale}.${value}`, value)
   }
 
-  if (isNumber(parsed)) {
+  if (isNumber(parsed) && parsed !== 0) {
     return `${parsed}px`
   }
 
