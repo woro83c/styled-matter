@@ -1,3 +1,3 @@
-import createMatter from 'styled-matter'
+import createUI from 'styled-matter'
 
-export default createMatter()
+export default createUI()
