@@ -1,4 +1,5 @@
 import { jsx, css } from '@emotion/core'
+import isPropValid from '@emotion/is-prop-valid'
 import { isNumber, themeGet } from './util'
 
 export default class Atom {
@@ -10,8 +11,11 @@ export default class Atom {
   }
 
   create() {
+    const validProps = Object.fromEntries(
+      Object.entries(this.props).filter(([propName]) => isPropValid(propName))
+    )
     return jsx(this.element, {
-      ...this.props,
+      ...validProps,
       css: this.css(),
     })
   }

@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/woro83c/styled-matter#readme",
   "dependencies": {
+    "@emotion/is-prop-valid": "^0.8.5",
     "lodash.get": "^4.4.2"
   },
   "devDependencies": {
