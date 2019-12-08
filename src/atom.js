@@ -49,11 +49,8 @@ export default class Atom {
       const escapedExpression = this.escapeExpression(expression)
       const value = this.cssValue(escapedExpression, breakpoint)
 
-      /**
-       * Require value - loose equality operator allows for 0
-       * @example <H1 mb={0} />
-       */
-      if (value == null) {
+      // Require value
+      if (!value && value !== 0) {
         return prev
       }
 
