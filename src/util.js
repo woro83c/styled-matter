@@ -1,11 +1,11 @@
-import { ThemeContext } from '@emotion/core'
+import { jsx, ThemeContext } from '@emotion/core'
 import get from 'lodash.get'
-import { createElement, useContext } from 'react'
+import { useContext } from 'react'
 import defaultTheme from './default-theme'
 
-export function createComponent({ type, props }) {
-  function Component({ children, ...props }) {
-    return createElement(type, props, children)
+export function componentize({ type, props }) {
+  function Component(props) {
+    return jsx(type, props)
   }
 
   Component.defaultProps = props
