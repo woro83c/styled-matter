@@ -36,7 +36,7 @@ function Intro() {
 
 ## Give it a whirl
 
-[Check out the demo sandbox](#https://codesandbox.io/s/github/woro83c/styled-matter/tree/master/sandbox)
+[Check out the demo sandbox](https://codesandbox.io/s/github/woro83c/styled-matter/tree/master/sandbox)
 
 ## Features
 

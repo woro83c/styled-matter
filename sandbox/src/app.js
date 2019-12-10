@@ -17,7 +17,7 @@ function App() {
           One bit of UI to style them all
         </P>
         <A
-          href="https://github.com/woro83c/styled-matter#get-started"
+          href="https://github.com/woro83c/styled-matter#getting-started"
           bg="primary"
           color="white"
           display="inline-block"
