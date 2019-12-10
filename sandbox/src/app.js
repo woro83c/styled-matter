@@ -14,7 +14,7 @@ function App() {
           Styled Matter
         </H1>
         <P fontSize={4} mt={0} mb={6}>
-          One React component to style them all
+          One bit of UI to style them all
         </P>
         <A
           href="https://github.com/woro83c/styled-matter#get-started"
