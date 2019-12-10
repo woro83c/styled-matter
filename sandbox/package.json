@@ -10,7 +10,7 @@
     "emotion-theming": "^10.0.19",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "styled-matter": "^0.1.3"
+    "styled-matter": "^0.1.4"
   },
   "scripts": {
     "start": "react-scripts start"
