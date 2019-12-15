@@ -120,6 +120,59 @@ function Intro() {
 
 > **Note:** Values containing periods must be escaped using single quotes - see [Responsive styles](#responsive-styles).
 
+### Aliases
+
+Free your markup from bloat using aliases. Sourced from popular CSS frameworks, Styled Matter uses common shorthand syntax to alias some of the more verbose prop names for you:
+
+```jsx
+function Intro() {
+  return (
+    <>
+      <H1 mt={0} mb="'1.5rem'">
+        Styled Matter
+      </H1>
+      <P mt={0} mb="'1.5rem'">
+        Hello, world!
+      </P>
+      <Button
+        bg="fuchsia"
+        color="white"
+        display="inline-block"
+        fontWeight="bold"
+        p="1rem 2rem"
+        rounded={4}
+      >
+        Get started
+      </Button>
+    </>
+  )
+}
+```
+
+### Theming
+
+Get started by creating a theme object - theme objects should conform to the [System UI Theme Specification](https://system-ui.com/theme):
+
+```js
+// theme.js
+export default {
+  space: [
+    0,
+    '.25rem',
+    '.5rem',
+    '.75rem',
+    '1rem',
+    '1.25rem',
+    '1.5rem',
+    '2rem',
+  ],
+  colors: {
+    primary: 'hsl(300, 100%, 50%)',
+    dark: 'hsl(0, 0%, 10%)',
+  }
+}
+```
+
 ## To do
 
 - Documentation, etc.
