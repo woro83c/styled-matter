@@ -167,11 +167,62 @@ export default {
     '2rem',
   ],
   colors: {
-    primary: 'hsl(300, 100%, 50%)',
+    primary: 'fuchsia',
     dark: 'hsl(0, 0%, 10%)',
   }
 }
 ```
+
+Using Emotion's theming library, we can now make these values accessible to all our UI via style props. Start by installing the library:
+
+```sh
+npm install emotion-theming
+```
+
+Wrap the root of your application with Emotion's `<ThemeProvider>`, passing it your theme object.
+
+```jsx
+import { ThemeProvider } from 'emotion-theming'
+import theme from './theme'
+
+function App() {
+  return (
+    <ThemeProvider theme={theme}>
+      <Intro />
+    </ThemeProvider>
+  )
+}
+```
+
+Now, let's update our `<Intro>` component to use values from our theme:
+
+```js
+function Intro() {
+  return (
+    <>
+      <H1 mt={0} mb={6}>
+        Styled Matter
+      </H1>
+      <P mt={0} mb={6}>
+        Hello, world!
+      </P>
+      <Button
+        bg="primary"
+        color="white"
+        display="inline-block"
+        fontWeight="bold"
+        px={7}
+        py={4}
+        rounded={4}
+      >
+        Get started
+      </Button>
+    </>
+  )
+}
+```
+
+Niceeee 👌
 
 ## To do
 
