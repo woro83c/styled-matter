@@ -35,7 +35,7 @@ export default {
     '4rem',
   ],
   colors: {
-    primary: 'hsl(300, 100%, 50%)',
+    primary: 'fuchsia',
     dark: 'hsl(0, 0%, 10%)',
   },
   fonts: {
