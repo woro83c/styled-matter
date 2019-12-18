@@ -196,7 +196,7 @@ function App() {
 
 Now, let's update our `<Intro>` component to use values from our theme:
 
-```js
+```jsx
 function Intro() {
   return (
     <>
