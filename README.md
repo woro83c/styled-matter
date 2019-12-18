@@ -179,7 +179,7 @@ Using Emotion's theming library, we can now make these values accessible to all 
 npm install emotion-theming
 ```
 
-Wrap the root of your application with Emotion's `<ThemeProvider>`, passing it your theme object.
+Wrap the root of your application with Emotion's `<ThemeProvider>`, passing it your theme object:
 
 ```jsx
 import { ThemeProvider } from 'emotion-theming'
