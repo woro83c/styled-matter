@@ -268,7 +268,7 @@ render(
 
 Using this syntax, we quickly get a feel for how this will look across breakpoints. Specifically, we can see:
 
-- Text size increasing at the 2nd and 3rd breakpoints, and
+- Font size increasing at the 2nd and 3rd breakpoints, and
 - Padding increasing at the 3rd
 
 ### Escaping values
