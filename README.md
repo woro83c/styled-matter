@@ -124,23 +124,28 @@ function Intro() {
 
 Free your markup from bloat using aliases. Sourced from popular CSS frameworks, Styled Matter uses common shorthand syntax to alias some of the more verbose prop names for you:
 
-```jsx
+```diff
 function Intro() {
   return (
     <>
-      <H1 mt={0} mb="'1.5rem'">
+-     <H1 marginTop={0} marginBottom="'1.5rem'">
++     <H1 mt={0} mb="'1.5rem'">
         Styled Matter
       </H1>
-      <P mt={0} mb="'1.5rem'">
+-     <P marginTop={0} marginBottom="'1.5rem'">
++     <P mt={0} mb="'1.5rem'">
         Hello, world!
       </P>
       <Button
-        bg="fuchsia"
+-       backgroundColor="fuchsia"
+-       borderRadius={4}
++       bg="fuchsia"
         color="white"
         display="inline-block"
         fontWeight="bold"
-        p="1rem 2rem"
-        rounded={4}
+-       padding="1rem 2rem"
++       p="1rem 2rem"
++       rounded={4}
       >
         Get started
       </Button>
@@ -196,23 +201,27 @@ function App() {
 
 Now, let's update our `<Intro>` component to use values from our theme:
 
-```jsx
+```diff
 function Intro() {
   return (
     <>
-      <H1 mt={0} mb={6}>
+-     <H1 mt={0} mb="'1.5rem'">
++     <H1 mt={0} mb={6}>
         Styled Matter
       </H1>
-      <P mt={0} mb={6}>
+-     <P mt={0} mb="'1.5rem'">
++     <P mt={0} mb={6}>
         Hello, world!
       </P>
       <Button
-        bg="primary"
+-       bg="fuchsia"
++       bg="primary"
         color="white"
         display="inline-block"
         fontWeight="bold"
-        px={7}
-        py={4}
+-       p="1rem 2rem"
++       px={7}
++       py={4}
         rounded={4}
       >
         Get started
@@ -249,16 +258,18 @@ As you can see, it can be hard to tell what's going on here. Each utility is one
 
 Using CSS expressions, we can target any or all breakpoints with a single style prop. We do it by passing a string literal containing values _separated by periods_ - with each period representing the gap between breakpoints:
 
-```jsx
+```diff
 render(
   <Button
     bg="primary"
     color="white"
     display="inline-block"
-    fontSize="..lg.xl"
++   fontSize="..lg.xl"
     fontWeight="bold"
-    px="6...7"
-    py="3...4"
+-   px={7}
+-   py={4}
++   px="6...7"
++   py="3...4"
     rounded={4}
   >
     Get started
