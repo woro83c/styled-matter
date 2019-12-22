@@ -224,6 +224,116 @@ function Intro() {
 
 Niceeee 👌
 
-## To do
+## Responsive styles
 
-- Documentation, etc.
+Common to utility-first frameworks is the ability to quickly set responsive styles directly in your markup. It's an approach that works really well to begin with, but as complexity increases - especially across breakpoints - markup can become bloated and hard to read.
+
+Enter CSS **expressions**.
+
+Using the `<Button>` element from our previous example, let's try to make it more responsive. As the screen widens, we want to:
+
+- Increase its font size, and
+- Increase its padding
+
+While this is a slightly contrived example, here's how one might achieve this using [Tailwind CSS](https://tailwindcss.com):
+
+```jsx
+render(
+  <Button className="bg-primary text-white inline-block md:text-lg lg:text-xl font-bold px-6 py-3 lg:px-7 lg:py-4 rounded-4">
+    Get started
+  </Button>
+)
+```
+
+As you can see, it can be hard to tell what's going on here. Each utility is one of _many_ making up the salad. We can do much better though.
+
+Using CSS expressions, we can target any or all breakpoints with a single style prop. We do it by passing a string literal containing values _separated by periods_ - with each period representing the gap between breakpoints:
+
+```jsx
+render(
+  <Button
+    bg="primary"
+    color="white"
+    display="inline-block"
+    fontSize="..lg.xl"
+    fontWeight="bold"
+    px="6...7"
+    py="3...4"
+    rounded={4}
+  >
+    Get started
+  </Button>
+)
+```
+
+Using this syntax, we quickly get a feel for how this will look across breakpoints. Specifically, we can see:
+
+- Text size increasing at the 2nd and 3rd breakpoints, and
+- Padding increasing at the 3rd
+
+### Escaping values
+
+Due to the use of periods when separating values, _values containing periods_ must be wrapped in **single quotes** in order for them to be properly recognized.
+
+👍 Styled Matter will **correctly** recognize two values here, i.e., `1.5rem` and `.75rem`:
+
+```jsx
+render(
+  <Button px="'1.5rem'" py="'.75rem'">
+    Yep
+  </Button>
+)
+```
+
+👎 Styled Matter will **incorrectly** recognize three values here, i.e., `1`, `5rem`, and `75rem`:
+
+```jsx
+render(
+  <Button px="1.5rem" py=".75rem">
+    Nope
+  </Button>
+)
+```
+
+## Components
+
+Use `componentize` to set default props _automatically_ when composing components:
+
+```jsx
+import { componentize } from 'styled-matter'
+import UI from './ui'
+
+const Button = componentize(
+  <UI.Button
+    bg="primary"
+    color="white"
+    display="inline-block"
+    fontSize="..lg.xl"
+    fontWeight="bold"
+    px="6...7"
+    py="3...4"
+    rounded={4}
+  />
+)
+```
+
+## Custom UI
+
+Customize UI by passing a config object to the `createUI` function:
+
+```js
+// ui.js
+import createUI from 'styled-matter'
+import config from './config'
+
+export default createUI(config)
+```
+
+> **Note**: For an example, see [default config](https://github.com/woro83c/styled-matter/blob/master/src/default-config.js).
+
+
+## Roadmap
+
+- Improve documentation
+- Pseudo-classes
+- Pseudo-elements
