@@ -1,6 +1,6 @@
 {
   "name": "styled-matter",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "One React component to style them all",
   "main": "dist/index.js",
   "scripts": {
