@@ -328,6 +328,18 @@ const Button = componentize(
 )
 ```
 
+### `as` prop
+
+Use the `as` prop to update the underlying element to be rendered:
+
+```jsx
+render(
+  <Button as="a" href="#getting-started">
+    Get started
+  </Button>
+)
+```
+
 ## Custom UI
 
 Customize UI by passing a config object to the `createUI` function:
