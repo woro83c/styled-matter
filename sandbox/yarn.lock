@@ -6175,11 +6175,6 @@ lodash._reinterpolate@^3.0.0:
   resolved "https://registry.yarnpkg.com/lodash._reinterpolate/-/lodash._reinterpolate-3.0.0.tgz#0ccf2d89166af03b3663c796538b75ac6e114d9d"
   integrity sha1-DM8tiRZq8Ds2Y8eWU4t1rG4RTZ0=
 
-lodash.get@^4.4.2:
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/lodash.get/-/lodash.get-4.4.2.tgz#2d177f652fa31e939b4438d5341499dfa3825e99"
-  integrity sha1-LRd/ZS+jHpObRDjVNBSZ36OCXpk=
-
 lodash.memoize@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
@@ -9570,13 +9565,12 @@ style-loader@1.0.0:
     loader-utils "^1.2.3"
     schema-utils "^2.0.1"
 
-styled-matter@^0.1.6:
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/styled-matter/-/styled-matter-0.1.6.tgz#ec771b877117dfcf0e9e3dacbdd8a50e1a52cc78"
-  integrity sha512-xDexHooWvJv8uQqkX3+4Ur0DiflFxF2iFSkZ2mWdnjREvVe9wjGpuoW+yE7D72kSZAQZoP/cPSFLJLDpF3GsgA==
+styled-matter@^0.1.7:
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/styled-matter/-/styled-matter-0.1.7.tgz#311c5761f0e42d4cc29bd5bd7247e652c1f1ad8c"
+  integrity sha512-WW3kC5dRJPforfhpgvuUDC+mSYcSXuFWTKxmVfkrV+s1SugUG3MYIh2LfE5t/2+W8doNd+fRopPX1GTYxsQHOA==
   dependencies:
     "@emotion/is-prop-valid" "^0.8.5"
-    lodash.get "^4.4.2"
 
 stylehacks@^4.0.0:
   version "4.0.3"
