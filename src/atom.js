@@ -1,6 +1,6 @@
 import { jsx, css } from '@emotion/core'
 import isPropValid from '@emotion/is-prop-valid'
-import { isNumber, themeGet } from './util'
+import { get, isNumber } from './util'
 
 export default class Atom {
   constructor(element, props, config) {
@@ -61,7 +61,7 @@ export default class Atom {
        * @example 'space'
        */
       if (typeof config === 'string') {
-        return css([prev, { [property]: themeGet(`${config}.${value}`, value) }])
+        return css([prev, { [property]: this.themeGet(`${config}.${value}`, value) }])
       }
 
       /**
@@ -82,7 +82,7 @@ export default class Atom {
        * @example undefined
        */
       if (this.isCssProperty(property)) {
-        return css([prev, { [property]: themeGet(`${property}s.${value}`, value) }])
+        return css([prev, { [property]: this.themeGet(`${property}s.${value}`, value) }])
       }
 
       return prev
@@ -147,10 +147,10 @@ export default class Atom {
       }
 
       if (typeof callback === 'function') {
-        return callback(value, scale)
+        return callback(value, scale, this.props)
       }
 
-      const parsed = themeGet(`${scale}.${value}`, value)
+      const parsed = this.themeGet(`${scale}.${value}`, value)
 
       if (typeof callback === 'string' && isNumber(parsed)) {
         return parsed + callback
@@ -160,6 +160,10 @@ export default class Atom {
     }
 
     return vx
+  }
+
+  themeGet(path, defaultValue) {
+    return get(this.props.theme, path, defaultValue)
   }
 
   isCssProperty(propName) {

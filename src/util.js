@@ -1,7 +1,5 @@
 import { jsx, ThemeContext } from '@emotion/core'
-import get from 'lodash.get'
 import { useContext } from 'react'
-import defaultTheme from './default-theme'
 
 export function componentize({ type, props }) {
   function Component(props) {
@@ -13,19 +11,32 @@ export function componentize({ type, props }) {
   return Component
 }
 
+/**
+ * @see {@link https://github.com/developit/dlv}
+ */
+export function get(obj, key, def, p, undef) {
+  key = key.split ? key.split('.') : key
+
+  for (p = 0; p < key.length; p++) {
+    obj = obj ? obj[key[p]] : undef
+  }
+
+  return obj === undef ? def : obj
+}
+
 export function isNumber(value) {
   const n = Number(value)
   return n === n
 }
 
-export function margin(value, scale) {
+export function margin(value, scale, props) {
   let parsed
 
   if (value < 0) {
     const absolute = Math.abs(value)
-    parsed = `-${themeGet(`${scale}.${absolute}`, absolute)}`
+    parsed = `-${get(props, `theme.${scale}.${absolute}`, absolute)}`
   } else {
-    parsed = themeGet(`${scale}.${value}`, value)
+    parsed = get(props, `theme.${scale}.${value}`, value)
   }
 
   if (isNumber(parsed) && parsed !== 0) {
@@ -33,11 +44,6 @@ export function margin(value, scale) {
   }
 
   return parsed
-}
-
-export function themeGet(path, defaultValue) {
-  const theme = useTheme()
-  return get({ ...defaultTheme, ...theme }, path, defaultValue)
 }
 
 export function upperFirst(string) {
