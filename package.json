@@ -19,20 +19,20 @@
   },
   "homepage": "https://github.com/woro83c/styled-matter#readme",
   "dependencies": {
-    "@emotion/is-prop-valid": "^0.8.5"
+    "@emotion/is-prop-valid": "^0.8.8"
   },
   "devDependencies": {
-    "@babel/cli": "^7.7.5",
-    "@babel/core": "^7.7.5",
-    "@babel/preset-env": "^7.7.6",
-    "eslint": "^6.7.2",
-    "eslint-config-prettier": "^6.7.0",
-    "eslint-plugin-prettier": "^3.1.1",
-    "eslint-plugin-react": "^7.17.0",
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.19.0",
     "prettier": "1.19.1"
   },
   "peerDependencies": {
-    "@emotion/core": "^10.0.22",
-    "react": "^16.12.0"
+    "@emotion/core": "^10.0.28",
+    "react": "^16.13.0"
   }
 }
