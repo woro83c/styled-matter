@@ -44,6 +44,7 @@ function Intro() {
 - Cleaner responsive styles with CSS _expressions_
 - Easy to grok markup using HTML-like primitives
 - Reduced boilerplate - create all primitive UI with a single line
+- Inner props - easily apply one-off styles to nested components
 
 ## Getting started
 
@@ -339,6 +340,34 @@ render(
   </Button>
 )
 ```
+
+### Inner props
+
+[Composing components can be tricky](https://css-tricks.com/considerations-for-creating-a-card-component/), and refactoring a component for the sake of a one-off style can be especially annoying. Using **inner props** though, we can remedy this - here's how:
+
+Using a `<Card>` component as a base, let's assume we need to update the underlying element for its inner title component. To make its props overrideable, simply pass a `$key` prop to it to serve as an identifier for later:
+
+```diff
+const Card = componentize(
+  <Div>
+    <Img src="https://source.unsplash.com/random" alt="">
+-   <H5>Card title</H5>
++   <H5 $key="title">Card title</H5>
+  </Div>
+)
+```
+
+Using this identifier, we can now reach within our `<Card>` component to pass props to its inner `title` component. We do this by passing a prop just like any other - except an inner prop _must_ be marked by a single dollar symbol ($) prepended to its name:
+
+```jsx
+render(
+  <Card $title={{ as: 'h2' }}>
+)
+```
+
+Voilà! No refactor required 😎
+
+> **Note**: Inner props are reserved for "componentized" components only.
 
 ## Custom UI
 
