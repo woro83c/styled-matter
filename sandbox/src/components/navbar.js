@@ -13,7 +13,7 @@ export default componentize(
         color="inherit"
         display="flex"
         fontSize={4}
-        fontWeight="bold"
+        fontWeight={800}
         href="https://github.com/woro83c/styled-matter"
         textDecoration="none"
       >

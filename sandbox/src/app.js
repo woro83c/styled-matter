@@ -11,7 +11,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Layout>
-        <H1 fontSize="7..8.9" mt={0} mb={6}>
+        <H1 fontSize="7..8.9" fontWeight={800} mt={0} mb={6}>
           Styled Matter
         </H1>
         <P fontSize={4} mt={0} mb={6}>
