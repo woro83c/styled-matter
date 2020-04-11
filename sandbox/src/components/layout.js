@@ -1,9 +1,10 @@
 import React from 'react'
 import { Global, css } from '@emotion/core'
 import Container from './container'
+import Navbar from './navbar'
 import UI from '../ui'
 
-const { Header, A, Span, Main } = UI
+const { Main } = UI
 
 function Layout({ children }) {
   return (
@@ -22,40 +23,7 @@ function Layout({ children }) {
           }
         `}
       />
-      <Header borderBottom="1px solid" borderBottomColor="dark" py={5}>
-        <Container>
-          <A
-            href="https://github.com/woro83c/styled-matter"
-            alignItems="center"
-            color="inherit"
-            display="flex"
-            fontSize={4}
-            fontWeight="bold"
-            textDecoration="none"
-          >
-            <Span
-              aria-hidden="true"
-              alignItems="center"
-              display="flex"
-              flexDirection="column"
-              justifyContent="center"
-              mr="'.5ch'"
-              size="1em"
-            >
-              <Span
-                border="'.025em solid'"
-                lineHeight={2}
-                size="2em"
-                textAlign="center"
-                transform="'scale(.5)'"
-              >
-                Sm
-              </Span>
-            </Span>
-            Styled Matter
-          </A>
-        </Container>
-      </Header>
+      <Navbar $logomark={{ borderColor: 'primary', children: 'Sm' }} />
       <Main py="15..16.17">
         <Container>{children}</Container>
       </Main>

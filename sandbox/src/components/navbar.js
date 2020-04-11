@@ -7,7 +7,7 @@ const { A, Header, Span } = UI
 
 export default componentize(
   <Header borderBottom="1px solid" borderBottomColor="dark" py={5}>
-    <Container uiid="container">
+    <Container $key="container">
       <A
         alignItems="center"
         color="inherit"
@@ -27,15 +27,13 @@ export default componentize(
           size="1em"
         >
           <Span
+            $key="logomark"
             border="'.025em solid'"
             lineHeight={2}
             size="2em"
             textAlign="center"
             transform="'scale(.5)'"
-            uiid="logomark"
-          >
-            Sm
-          </Span>
+          />
         </Span>
         Styled Matter
       </A>

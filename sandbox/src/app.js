@@ -1,7 +1,7 @@
 import React from 'react'
 import { ThemeProvider } from 'emotion-theming'
 import Layout from './components/layout'
-import Button from './components/button'
+import Button from './primitives/button'
 import theme from './theme'
 import UI from './ui'
 
