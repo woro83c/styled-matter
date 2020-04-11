@@ -40,14 +40,14 @@ export function mapInnerProps(innerProps, children) {
     }
 
     let { props } = element
-    const { children, uiid } = props
+    const { $key } = props
 
-    if (uiid) {
-      const [, value] = Object.entries(innerProps).find(([key]) => key === uiid) || []
+    if ($key) {
+      const [, value] = Object.entries(innerProps).find(([key]) => key === $key) || []
       props = { ...props, ...value }
     }
 
-    return cloneElement(element, props, mapInnerProps(innerProps, children))
+    return cloneElement(element, props, mapInnerProps(innerProps, props.children))
   })
 
   return result
@@ -72,8 +72,8 @@ export function margin(value, scale, props) {
 
 export function parseProps(props) {
   const reducer = (prev, [key, value]) => {
-    if (key.startsWith('__')) {
-      return { ...prev, innerProps: { ...prev.innerProps, [key.substring(2)]: value } }
+    if (key.startsWith('$')) {
+      return { ...prev, innerProps: { ...prev.innerProps, [key.substring(1)]: value } }
     }
 
     return { ...prev, [key]: value }
