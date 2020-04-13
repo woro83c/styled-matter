@@ -1,5 +1,5 @@
-import { jsx, ThemeContext } from '@emotion/core'
 import { Children, cloneElement, isValidElement, useContext } from 'react'
+import { jsx, ThemeContext } from '@emotion/core'
 
 export function componentize({ type, props }) {
   function Component(props) {
@@ -22,6 +22,21 @@ export function get(obj, key, def, p, undef) {
   }
 
   return obj === undef ? def : obj
+}
+
+/**
+ * @see {@link https://github.com/acdlite/recompose}
+ */
+export function getDisplayName(Component) {
+  if (typeof Component === 'string') {
+    return Component
+  }
+
+  if (!Component) {
+    return undefined
+  }
+
+  return Component.displayName || Component.name || 'Component'
 }
 
 export function isNumber(value) {

@@ -5,7 +5,7 @@ import Button from './primitives/button'
 import theme from './theme'
 import UI from './ui'
 
-const { H1, P } = UI
+const { Before, H1, P } = UI
 
 function App() {
   return (
@@ -17,7 +17,16 @@ function App() {
         <P fontSize={4} mt={0} mb={6}>
           One bit of UI to style them all
         </P>
-        <Button as="a" href="https://github.com/woro83c/styled-matter#getting-started">
+        <Button
+          as="a"
+          bg="transparent"
+          color="primary"
+          fontSize={6}
+          href="https://github.com/woro83c/styled-matter#getting-started"
+          px={0}
+          py={0}
+        >
+          <Before mr="'.2em'">🚀</Before>
           Get started
         </Button>
       </Layout>

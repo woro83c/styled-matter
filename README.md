@@ -307,6 +307,19 @@ render(
 )
 ```
 
+## Pseudo-components
+
+```jsx
+const { Before, After } = UI
+
+render(
+  <Button>
+    <Before mr="'.2em'">🚀</Before>
+    Get started
+  </Button>
+)
+```
+
 ## Components
 
 Use `componentize` to set default props _automatically_ when composing components:

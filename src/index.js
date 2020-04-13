@@ -28,6 +28,12 @@ export default function createUI(config) {
     }
   })
 
+  // Pseudo-components
+  /* eslint-disable prettier/prettier */
+  Matter.Before = function Before() { return null }
+  Matter.After = function After() { return null }
+  /* eslint-enable */
+
   return Matter
 }
 

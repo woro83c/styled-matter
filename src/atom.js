@@ -1,6 +1,7 @@
+import { Children } from 'react'
 import { jsx, css } from '@emotion/core'
 import isPropValid from '@emotion/is-prop-valid'
-import { get, isNumber } from './util'
+import { get, getDisplayName, isNumber } from './util'
 
 export default class Atom {
   constructor(element, props, config) {
@@ -43,9 +44,13 @@ export default class Atom {
   /**
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/Syntax#CSS_rulesets}
    */
-  cssRuleset(breakpoint) {
-    const { children, theme, ...props } = this.props
-    const result = Object.entries(props).reduce((prev, [propName, expression]) => {
+  cssRuleset(breakpoint, props) {
+    const { theme, ...rest } = props || this.props
+    const result = Object.entries(rest).reduce((prev, [propName, expression]) => {
+      if (propName === 'children' && breakpoint === 0) {
+        return css([prev, this.pseudoCss()])
+      }
+
       const escapedExpression = this.escapeExpression(expression)
       const value = this.cssValue(escapedExpression, breakpoint)
 
@@ -89,6 +94,24 @@ export default class Atom {
     }, {})
 
     return result
+  }
+
+  pseudoCss() {
+    return Children.toArray(this.props.children).reduce((prev, { type, props }) => {
+      const displayName = getDisplayName(type)
+
+      if (displayName === 'Before' || displayName === 'After') {
+        const selector = `&::${displayName.toLowerCase()}`
+        const { children, ...rest } = props
+        const content = Children.toArray(children)
+          .filter((child) => typeof child === 'string')
+          .join('')
+
+        return css([prev, { [selector]: this.cssRuleset(0, { ...rest, content: `"${content}"` }) }])
+      }
+
+      return prev
+    }, {})
   }
 
   escapeExpression(expression) {
