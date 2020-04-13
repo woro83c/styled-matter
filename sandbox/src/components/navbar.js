@@ -7,7 +7,7 @@ const { A, Header, Span } = UI
 
 export default componentize(
   <Header borderBottom="1px solid" borderBottomColor="dark" py={5}>
-    <Container $key="container">
+    <Container>
       <A
         alignItems="center"
         color="inherit"
