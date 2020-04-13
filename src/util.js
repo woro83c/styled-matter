@@ -34,7 +34,7 @@ export function mapInnerProps(innerProps, children) {
     return children
   }
 
-  const result = Children.toArray(children).map(element => {
+  const result = Children.toArray(children).map((element) => {
     if (!isValidElement(element)) {
       return element
     }

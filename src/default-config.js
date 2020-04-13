@@ -8,11 +8,11 @@ export default {
   'marginBottom, mb': ['space', margin],
   'marginLeft, ml': ['space', margin],
   'marginRight, mr': ['space', margin],
-  'marginX, mx': vx => css`
+  'marginX, mx': (vx) => css`
     margin-left: ${vx('space', margin)};
     margin-right: ${vx('space', margin)};
   `,
-  'marginY, my': vx => css`
+  'marginY, my': (vx) => css`
     margin-top: ${vx('space', margin)};
     margin-bottom: ${vx('space', margin)};
   `,
@@ -21,11 +21,11 @@ export default {
   'paddingBottom, pb': 'space',
   'paddingLeft, pl': 'space',
   'paddingRight, pr': 'space',
-  'paddingX, px': vx => css`
+  'paddingX, px': (vx) => css`
     padding-left: ${vx('space')};
     padding-right: ${vx('space')};
   `,
-  'paddingY, py': vx => css`
+  'paddingY, py': (vx) => css`
     padding-top: ${vx('space')};
     padding-bottom: ${vx('space')};
   `,
@@ -42,7 +42,7 @@ export default {
   minHeight: 'sizes',
   maxWidth: 'sizes',
   maxHeight: 'sizes',
-  size: vx => css`
+  size: (vx) => css`
     width: ${vx('sizes')};
     height: ${vx('sizes')};
   `,
@@ -84,35 +84,35 @@ export default {
   'borderTopRightRadius, roundedTopRight': 'radii',
   'borderBottomLeftRadius, roundedBottomLeft': 'radii',
   'borderBottomRightRadius, roundedBottomRight': 'radii',
-  'borderTopRadius, roundedTop': vx => css`
+  'borderTopRadius, roundedTop': (vx) => css`
     border-top-left-radius: ${vx('radii')};
     border-top-right-radius: ${vx('radii')};
   `,
-  'borderBottomRadius, roundedBottom': vx => css`
+  'borderBottomRadius, roundedBottom': (vx) => css`
     border-bottom-left-radius: ${vx('radii')};
     border-bottom-right-radius: ${vx('radii')};
   `,
-  'borderLeftRadius, roundedLeft': vx => css`
+  'borderLeftRadius, roundedLeft': (vx) => css`
     border-top-left-radius: ${vx('radii')};
     border-bottom-left-radius: ${vx('radii')};
   `,
-  'borderRightRadius, roundedRight': vx => css`
+  'borderRightRadius, roundedRight': (vx) => css`
     border-top-right-radius: ${vx('radii')};
     border-bottom-right-radius: ${vx('radii')};
   `,
 
   // Position
-  inset: vx => css`
+  inset: (vx) => css`
     top: ${vx('space')};
     bottom: ${vx('space')};
     left: ${vx('space')};
     right: ${vx('space')};
   `,
-  insetX: vx => css`
+  insetX: (vx) => css`
     left: ${vx('space')};
     right: ${vx('space')};
   `,
-  insetY: vx => css`
+  insetY: (vx) => css`
     top: ${vx('space')};
     bottom: ${vx('space')};
   `,

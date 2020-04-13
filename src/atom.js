@@ -122,14 +122,14 @@ export default class Atom {
       return breakpoint === 0 ? expression : undefined
     }
 
-    const values = expression.split('.').map(value => value.replace('__PERIOD__', '.'))
+    const values = expression.split('.').map((value) => value.replace('__PERIOD__', '.'))
     const index = this.breakpoints.indexOf(breakpoint)
 
     return values[index]
   }
 
   configEntry(propName) {
-    const key = Object.keys(this.config).find(key => this.parseConfigKey(key).includes(propName))
+    const key = Object.keys(this.config).find((key) => this.parseConfigKey(key).includes(propName))
     const property = key ? this.parseConfigKey(key)[0] : propName
     const config = key && this.config[key]
 
@@ -137,7 +137,7 @@ export default class Atom {
   }
 
   parseConfigKey(key) {
-    return key.split(',').map(propName => propName.trim())
+    return key.split(',').map((propName) => propName.trim())
   }
 
   createValueFunction(value) {

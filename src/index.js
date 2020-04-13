@@ -7,7 +7,7 @@ import { componentize, upperFirst, useTheme } from './util'
 export default function createUI(config) {
   const Matter = {}
 
-  tags.forEach(tag => {
+  tags.forEach((tag) => {
     const key = acronyms.includes(tag.toUpperCase()) ? tag.toUpperCase() : upperFirst(tag)
 
     Matter[key] = ({ as: asProp, ...props }) => {

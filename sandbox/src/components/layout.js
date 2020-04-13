@@ -10,7 +10,7 @@ function Layout({ children }) {
   return (
     <>
       <Global
-        styles={theme => css`
+        styles={(theme) => css`
           * {
             box-sizing: border-box;
           }
