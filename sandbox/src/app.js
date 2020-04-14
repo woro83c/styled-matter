@@ -25,7 +25,9 @@ function App() {
           href="https://github.com/woro83c/styled-matter#getting-started"
           px={0}
           py={0}
+          target="_blank"
         >
+          {/* eslint-disable-next-line */}
           <Before mr="'.2em'">🚀</Before>
           Get started
         </Button>
