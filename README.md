@@ -361,13 +361,15 @@ render(
 Using a `<Card>` component as a base, let's assume we need to update the underlying element for its inner title component. To make its props overrideable, simply pass a `$key` prop to it to serve as an identifier for later:
 
 ```diff
-const Card = componentize(
-  <Div>
-    <Img src="https://source.unsplash.com/random" alt="">
--   <H5>Card title</H5>
-+   <H5 $key="title">Card title</H5>
-  </Div>
-)
+function Card() {
+  return (
+    <Div>
+      <Img src="https://source.unsplash.com/random" alt="">
+-     <H5>Card title</H5>
++     <H5 $key="title">Card title</H5>
+    </Div>
+  )
+}
 ```
 
 Using this identifier, we can now reach within our `<Card>` component to pass props to its inner `title` component. We do this by passing a prop just like any other - except an inner prop _must_ be marked by a single dollar symbol ($) prepended to its name:
@@ -379,8 +381,6 @@ render(
 ```
 
 Voilà! No refactor required 😎
-
-> **Note**: Inner props are reserved for "componentized" components only.
 
 ## Custom UI
 
@@ -401,4 +401,3 @@ export default createUI(config)
 
 - Improve documentation
 - Pseudo-classes
-- Pseudo-elements

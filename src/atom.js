@@ -1,4 +1,4 @@
-import { Children } from 'react'
+import { Children, cloneElement, isValidElement } from 'react'
 import { jsx, css } from '@emotion/core'
 import isPropValid from '@emotion/is-prop-valid'
 import { get, getDisplayName, isNumber } from './util'
@@ -6,9 +6,48 @@ import { get, getDisplayName, isNumber } from './util'
 export default class Atom {
   constructor(element, props, config) {
     this.element = element
-    this.props = props
+    this.props = this.parseProps(props)
     this.config = config
     this.breakpoints = [0, ...props.theme.breakpoints]
+  }
+
+  parseProps(props) {
+    const reducer = (prev, [key, value]) => {
+      if (key.startsWith('$')) {
+        return { ...prev, innerProps: { ...prev.innerProps, [key.substring(1)]: value } }
+      }
+
+      return { ...prev, [key]: value }
+    }
+
+    const result = Object.entries(props).reduce(reducer, {})
+    const { children, innerProps, ...parsedProps } = result
+
+    return { ...parsedProps, children: this.mapInnerProps(innerProps, children) }
+  }
+
+  mapInnerProps(innerProps, children) {
+    if (!innerProps) {
+      return children
+    }
+
+    const result = Children.toArray(children).map((element) => {
+      if (!isValidElement(element)) {
+        return element
+      }
+
+      let { props } = element
+      const { $key } = props
+
+      if ($key) {
+        const [, value] = Object.entries(innerProps).find(([key]) => key === $key) || []
+        props = { ...props, ...value }
+      }
+
+      return cloneElement(element, props, this.mapInnerProps(innerProps, props.children))
+    })
+
+    return result
   }
 
   create() {
