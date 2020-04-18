@@ -12,12 +12,12 @@ export default class Atom {
   }
 
   parseProps(props) {
-    const reducer = (prev, [key, value]) => {
-      if (key.startsWith('$')) {
-        return { ...prev, innerProps: { ...prev.innerProps, [key.substring(1)]: value } }
+    const reducer = (prev, [propName, value]) => {
+      if (propName.startsWith('$')) {
+        return { ...prev, innerProps: { ...prev.innerProps, [propName.substring(1)]: value } }
       }
 
-      return { ...prev, [key]: value }
+      return { ...prev, [propName]: value }
     }
 
     const result = Object.entries(props).reduce(reducer, {})
@@ -37,10 +37,11 @@ export default class Atom {
       }
 
       let { props } = element
-      const { $key } = props
+      const { className } = props
 
-      if ($key) {
-        const [, value] = Object.entries(innerProps).find(([key]) => key === $key) || []
+      if (className) {
+        const [, value] =
+          Object.entries(innerProps).find(([propName]) => propName === className) || []
         props = { ...props, ...value }
       }
 
@@ -56,22 +57,19 @@ export default class Atom {
     )
     return jsx(this.element, {
       ...validProps,
-      css: this.css(),
+      css: css([this.css(), this.sx(), this.children()]),
     })
   }
 
-  css() {
-    return this.breakpoints.reduce(
-      (prev, breakpoint) => css([prev, this.cssStatement(breakpoint)]),
-      {}
-    )
+  css(props = this.props) {
+    return this.breakpoints.map((breakpoint) => this.cssStatement(props, breakpoint))
   }
 
   /**
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/Syntax#CSS_statements}
    */
-  cssStatement(breakpoint) {
-    const ruleset = this.cssRuleset(breakpoint)
+  cssStatement(props, breakpoint) {
+    const ruleset = this.cssRuleset(props, breakpoint)
 
     if (breakpoint) {
       return css({ [`@media (min-width: ${breakpoint})`]: ruleset })
@@ -83,13 +81,9 @@ export default class Atom {
   /**
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/Syntax#CSS_rulesets}
    */
-  cssRuleset(breakpoint, props) {
-    const { theme, ...rest } = props || this.props
+  cssRuleset(props, breakpoint) {
+    const { children, sx, theme, ...rest } = props
     const result = Object.entries(rest).reduce((prev, [propName, expression]) => {
-      if (propName === 'children' && breakpoint === 0) {
-        return css([prev, this.pseudoCss()])
-      }
-
       const escapedExpression = this.escapeExpression(expression)
       const value = this.cssValue(escapedExpression, breakpoint)
 
@@ -105,52 +99,34 @@ export default class Atom {
        * @example 'space'
        */
       if (typeof config === 'string') {
-        return css([prev, { [property]: this.themeGet(`${config}.${value}`, value) }])
+        return [prev, { [property]: this.themeGet(`${config}.${value}`, value) }]
       }
 
       /**
        * @example ['space', margin]
        */
       if (Array.isArray(config)) {
-        return css([prev, { [property]: vx(...config) }])
+        return [prev, { [property]: vx(...config) }]
       }
 
       /**
        * @example vx => css({ borderRadius: vx('radii') })
        */
       if (typeof config === 'function') {
-        return css([prev, config(vx)])
+        return [prev, config(vx)]
       }
 
       /**
        * @example undefined
        */
       if (this.isCssProperty(property)) {
-        return css([prev, { [property]: this.themeGet(`${property}s.${value}`, value) }])
+        return [prev, { [property]: this.themeGet(`${property}s.${value}`, value) }]
       }
 
       return prev
-    }, {})
+    }, [])
 
     return result
-  }
-
-  pseudoCss() {
-    return Children.toArray(this.props.children).reduce((prev, { type, props }) => {
-      const displayName = getDisplayName(type)
-
-      if (displayName === 'Before' || displayName === 'After') {
-        const selector = `&::${displayName.toLowerCase()}`
-        const { children, ...rest } = props
-        const content = Children.toArray(children)
-          .filter((child) => typeof child === 'string')
-          .join('')
-
-        return css([prev, { [selector]: this.cssRuleset(0, { ...rest, content: `"${content}"` }) }])
-      }
-
-      return prev
-    }, {})
   }
 
   escapeExpression(expression) {
@@ -233,5 +209,29 @@ export default class Atom {
     const hasProperty = Object.prototype.hasOwnProperty.call(style, propName)
 
     return hasProperty
+  }
+
+  sx() {
+    const { sx } = this.props
+    if (!sx) return null
+    return Object.entries(sx).map(([selector, props]) => ({ [selector]: this.css(props) }))
+  }
+
+  children() {
+    return Children.toArray(this.props.children).reduce((prev, { type, props }) => {
+      const displayName = getDisplayName(type)
+
+      if (displayName === 'Before' || displayName === 'After') {
+        const selector = `&::${displayName.toLowerCase()}`
+        const { children, ...rest } = props
+        const content = Children.toArray(children)
+          .filter((child) => typeof child === 'string')
+          .join('')
+
+        return [prev, { [selector]: this.css({ ...rest, content: `"${content}"` }) }]
+      }
+
+      return prev
+    }, [])
   }
 }

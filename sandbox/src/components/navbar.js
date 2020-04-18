@@ -27,8 +27,8 @@ export default componentize(
           size="1em"
         >
           <Span
-            $key="logomark"
             border="'.025em solid'"
+            className="logomark"
             lineHeight={2}
             size="2em"
             textAlign="center"
