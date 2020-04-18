@@ -248,11 +248,9 @@ Using the `<Button>` element from our previous example, let's try to make it mor
 While this is a slightly contrived example, here's how one might achieve this using [Tailwind CSS](https://tailwindcss.com):
 
 ```jsx
-render(
-  <Button className="bg-primary text-white inline-block md:text-lg lg:text-xl font-bold px-6 py-3 lg:px-7 lg:py-4 rounded-4">
-    Get started
-  </Button>
-)
+<Button className="bg-primary text-white inline-block md:text-lg lg:text-xl font-bold px-6 py-3 lg:px-7 lg:py-4 rounded-4">
+  Get started
+</Button>
 ```
 
 As you can see, it can be hard to tell what's going on here. Each utility is one of _many_ making up the salad. We can do much better though.
@@ -260,22 +258,20 @@ As you can see, it can be hard to tell what's going on here. Each utility is one
 Using CSS expressions, we can target any or all breakpoints with a single style prop. We do it by passing a string literal containing values _separated by periods_ - with each period representing the gap between breakpoints:
 
 ```diff
-render(
-  <Button
-    bg="primary"
-    color="white"
-    display="inline-block"
-+   fontSize="..lg.xl"
-    fontWeight="bold"
--   px={7}
--   py={4}
-+   px="6...7"
-+   py="3...4"
-    rounded={4}
-  >
-    Get started
-  </Button>
-)
+<Button
+  bg="primary"
+  color="white"
+  display="inline-block"
++ fontSize="..lg.xl"
+  fontWeight="bold"
+- px={7}
+- py={4}
++ px="6...7"
++ py="3...4"
+  rounded={4}
+>
+  Get started
+</Button>
 ```
 
 Using this syntax, we quickly get a feel for how this will look across breakpoints. Specifically, we can see:
@@ -290,21 +286,17 @@ Due to the use of periods when separating values, _values containing periods_ mu
 👍 Styled Matter will **correctly** recognize two values here, i.e., `1.5rem` and `.75rem`:
 
 ```jsx
-render(
-  <Button px="'1.5rem'" py="'.75rem'">
-    Yep
-  </Button>
-)
+<Button px="'1.5rem'" py="'.75rem'">
+  Yep
+</Button>
 ```
 
 👎 Styled Matter will **incorrectly** recognize three values here, i.e., `1`, `5rem`, and `75rem`:
 
 ```jsx
-render(
-  <Button px="1.5rem" py=".75rem">
-    Nope
-  </Button>
-)
+<Button px="1.5rem" py=".75rem">
+  Nope
+</Button>
 ```
 
 ## Pseudo-components
@@ -356,7 +348,7 @@ Use the `as` prop to update the underlying element to be rendered:
 
 [Composing components can be tricky](https://css-tricks.com/considerations-for-creating-a-card-component/), and refactoring a component for the sake of a one-off style can be especially annoying. Using **inner props** though, we can remedy this - here's how:
 
-Using a `<Card>` component as a base, let's assume we need to update the underlying element for its inner title component. To make its props overrideable, simply pass a `$key` prop to it to serve as an identifier for later:
+Using a `<Card>` component as a base, let's assume we need to update the underlying element for its inner title component. To make its props overrideable, simply add a CSS class to serve as an identifier for later:
 
 ```diff
 function Card() {
@@ -364,7 +356,7 @@ function Card() {
     <Div>
       <Img src="https://source.unsplash.com/random" alt="">
 -     <H5>Card title</H5>
-+     <H5 $key="title">Card title</H5>
++     <H5 className="title">Card title</H5>
     </Div>
   )
 }
@@ -373,9 +365,7 @@ function Card() {
 Using this identifier, we can now reach within our `<Card>` component to pass props to its inner `title` component. We do this by passing a prop just like any other - except an inner prop _must_ be marked by a single dollar symbol ($) prepended to its name:
 
 ```jsx
-render(
-  <Card $title={{ as: 'h2' }}>
-)
+<Card $title={{ as: 'h2' }}>
 ```
 
 Voilà! No refactor required 😎
