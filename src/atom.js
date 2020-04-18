@@ -41,7 +41,7 @@ export default class Atom {
 
       if (className) {
         const [, value] =
-          Object.entries(innerProps).find(([propName]) => propName === className) || []
+          Object.entries(innerProps).find(([propName]) => className.includes(propName)) || []
         props = { ...props, ...value }
       }
 
