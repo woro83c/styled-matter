@@ -347,11 +347,9 @@ const Button = componentize(
 Use the `as` prop to update the underlying element to be rendered:
 
 ```jsx
-render(
-  <Button as="a" href="#getting-started">
-    Get started
-  </Button>
-)
+<Button as="a" href="#getting-started">
+  Get started
+</Button>
 ```
 
 ### Inner props
