@@ -400,4 +400,3 @@ export default createUI(config)
 ## Roadmap
 
 - Improve documentation
-- Pseudo-classes
