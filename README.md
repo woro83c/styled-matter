@@ -105,7 +105,7 @@ function Intro() {
         Hello, world!
       </P>
       <Button
-        backgroundColor="fuchsia"
+        backgroundColor="magenta"
         borderRadius={4}
         color="white"
         display="inline-block"
@@ -138,9 +138,9 @@ function Intro() {
         Hello, world!
       </P>
       <Button
--       backgroundColor="fuchsia"
+-       backgroundColor="magenta"
 -       borderRadius={4}
-+       bg="fuchsia"
++       bg="magenta"
         color="white"
         display="inline-block"
         fontWeight="bold"
@@ -173,7 +173,7 @@ export default {
     '2rem',
   ],
   colors: {
-    primary: 'fuchsia',
+    primary: 'magenta',
     dark: 'hsl(0, 0%, 10%)',
   }
 }
@@ -215,7 +215,7 @@ function Intro() {
         Hello, world!
       </P>
       <Button
--       bg="fuchsia"
+-       bg="magenta"
 +       bg="primary"
         color="white"
         display="inline-block"

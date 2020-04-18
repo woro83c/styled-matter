@@ -26,6 +26,7 @@ function App() {
           px={0}
           py={0}
           target="_blank"
+          sx={{ '&:hover, &:focus': { color: 'magenta-600' } }}
         >
           {/* eslint-disable-next-line */}
           <Before mr="'.2em'">🚀</Before>
