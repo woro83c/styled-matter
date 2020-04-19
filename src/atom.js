@@ -85,11 +85,16 @@ export default class Atom {
     const { children, sx, theme, ...rest } = props
     const result = Object.entries(rest).reduce((prev, [propName, expression]) => {
       const escapedExpression = this.escapeExpression(expression)
-      const value = this.cssValue(escapedExpression, breakpoint)
+      let value = this.cssValue(escapedExpression, breakpoint)
 
       // Require value
       if (!value && value !== 0) {
         return prev
+      }
+
+      // `content` prop
+      if (propName === 'content') {
+        value = `"${value}"`
       }
 
       const [property, config] = this.configEntry(propName)
@@ -228,7 +233,7 @@ export default class Atom {
           .filter((child) => typeof child === 'string')
           .join('')
 
-        return [prev, { [selector]: this.css({ ...rest, content: `"${content}"` }) }]
+        return [prev, { [selector]: this.css({ ...rest, content }) }]
       }
 
       return prev
