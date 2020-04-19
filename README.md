@@ -90,6 +90,16 @@ function Intro() {
 
 > **Note:** Some component names have been converted into uppercase - see [acronyms](https://github.com/woro83c/styled-matter/blob/master/src/tags.js#L140).
 
+#### `as` prop
+
+Use the `as` prop to update the underlying element to be rendered:
+
+```jsx
+<Button as="a" href="#getting-started">
+  Get started
+</Button>
+```
+
 ### Style UI
 
 Style your UI entirely with style props - simply use [object styles](https://emotion.sh/docs/object-styles) to write plain old CSS directly in your markup:
@@ -299,7 +309,48 @@ Due to the use of commas when separating values, _values containing commas_ must
 </Button>
 ```
 
-## Pseudo-components
+## Extra CSS
+
+Use the `xcss` prop to style what you can't using standard style props. It extends Emotion's `css` prop, allowing it to [pick up values from your theme](#theming) while also supporting [aliases](#aliases).
+
+### Hover
+
+```jsx
+<Button
+  bg="transparent"
+  border="1px solid"
+  color="primary"
+  xcss={{
+    '&:hover': {
+      bg: 'primary',
+      color: 'white'
+    }
+  }}
+>
+  Get started
+</Button>
+```
+
+### Group-hover
+
+```jsx
+<Div
+  bg="white"
+  xcss={{
+    '&:hover': {
+      bg: 'primary',
+    },
+    '&:hover *': {
+      color: 'white'
+    }
+  }}
+>
+  <H5 color="dark">Card title</H5>
+  <A href="#" color="dark">Card link</A>
+</Div>
+```
+
+## Pseudo-elements
 
 ```jsx
 const { Before, After } = UI
@@ -334,38 +385,31 @@ const Button = componentize(
 )
 ```
 
-### `as` prop
-
-Use the `as` prop to update the underlying element to be rendered:
-
-```jsx
-<Button as="a" href="#getting-started">
-  Get started
-</Button>
-```
-
 ### Inner props
 
 [Composing components can be tricky](https://css-tricks.com/considerations-for-creating-a-card-component/), and refactoring a component for the sake of a one-off style can be especially annoying. Using **inner props** though, we can remedy this - here's how:
 
-Using a `<Card>` component as a base, let's assume we need to update the underlying element for its inner title component. To make its props overrideable, simply add a CSS class to serve as an identifier for later:
+Using a `<Card>` component as a base, let's assume we need to update the color for each of its inner link components. To make each link's props _overrideable_, simply add a CSS class to serve as an identifier for later:
 
 ```diff
-function Card() {
+function Card(props) {
   return (
-    <Div>
+    <Div {...props}>
       <Img src="https://source.unsplash.com/random" alt="">
--     <H5>Card title</H5>
-+     <H5 className="title">Card title</H5>
+      <H5>Card title</H5>
+-     <A href="#">Card link</A>
+-     <A href="#">Another link</A>
++     <A href="#" className="link">Card link</A>
++     <A href="#" className="link">Another link</A>
     </Div>
   )
 }
 ```
 
-Using this identifier, we can now reach within our `<Card>` component to pass props to its inner `title` component. We do this by passing a prop just like any other - except an inner prop _must_ be marked by a single dollar symbol ($) prepended to its name:
+Using this identifier, we can now reach within our `<Card>` component to pass props to each of its inner `link` components. We do this by passing a prop just like any other - except an inner prop _must_ be marked by a single dollar symbol ($) prepended to its name:
 
 ```jsx
-<Card $title={{ as: 'h2' }}>
+<Card bg="primary" $link={{ color: 'white' }}>
 ```
 
 Voilà! No refactor required 😎
