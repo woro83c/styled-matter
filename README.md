@@ -311,7 +311,7 @@ Due to the use of commas when separating values, _values containing commas_ must
 
 ## Extra CSS
 
-Use the `xcss` prop to style what you can't using standard style props. It extends Emotion's `css` prop, allowing it to [pick up values from your theme](#theming) while also supporting [aliases](#aliases).
+Use the `xcss` prop to style what you can't using standard style props alone. It extends Emotion's `css` prop, allowing it to [pick up values from your theme](#theming) while also supporting [aliases](#aliases).
 
 ### Hover
 
