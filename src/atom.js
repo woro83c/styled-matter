@@ -145,7 +145,7 @@ export default class Atom {
       const end = start + match[0].length
       const { index: nextStart } = matches[index + 1] || {}
 
-      const escapedValue = match[1].replace('.', '__PERIOD__')
+      const escapedValue = match[1].replace(',', '__COMMA__')
       const before = index === 0 ? input.substring(0, start) : ''
       const after = input.substring(end, nextStart)
 
@@ -160,7 +160,7 @@ export default class Atom {
       return breakpoint === 0 ? expression : undefined
     }
 
-    const values = expression.split('.').map((value) => value.replace('__PERIOD__', '.'))
+    const values = expression.split(',').map((value) => value.replace('__COMMA__', ',').trim())
     const index = this.breakpoints.indexOf(breakpoint)
 
     return values[index]

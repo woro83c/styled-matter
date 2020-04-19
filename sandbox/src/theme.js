@@ -37,7 +37,9 @@ export default {
   colors: {
     primary: 'magenta',
     dark: 'hsl(0, 0%, 10%)',
-    'magenta-600': 'hsl(300, 100%, 42.5%)',
+    magenta: {
+      600: 'hsl(300, 100%, 42.5%)',
+    },
   },
   fonts: {
     sans:

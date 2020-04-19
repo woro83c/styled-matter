@@ -11,7 +11,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Layout>
-        <H1 fontSize="7..8.9" fontWeight={800} mt={0} mb={6}>
+        <H1 fontSize="7,,8,9" fontWeight={800} mt={0} mb={6}>
           Styled Matter
         </H1>
         <P fontSize={4} mt={0} mb={6}>
@@ -26,10 +26,10 @@ function App() {
           px={0}
           py={0}
           target="_blank"
-          sx={{ '&:hover, &:focus': { color: 'magenta-600' } }}
+          sx={{ '&:hover, &:focus': { color: 'magenta.600' } }}
         >
           {/* eslint-disable-next-line */}
-          <Before mr="'.2em'">🚀</Before>
+          <Before mr=".2em">🚀</Before>
           Get started
         </Button>
       </Layout>

@@ -11,7 +11,7 @@ const { H1, P, Button, ...etc } = UI
 function Intro() {
   return (
     <>
-      <H1 fontSize="7..8.9" mt={0} mb={6}>
+      <H1 fontSize="7,,8,9" mt={0} mb={6}>
         Styled Matter
       </H1>
       <P fontSize={4} mt={0} mb={6}>
@@ -21,10 +21,10 @@ function Intro() {
         bg="primary"
         border="1px solid transparent"
         color="white"
-        fontSize="..3.4"
+        fontSize=",,3,4"
         fontWeight="bold"
-        px="6...7"
-        py="3...4"
+        px="6,,,7"
+        py="3,,,4"
         rounded={4}
       >
         Get started
@@ -98,10 +98,10 @@ Style your UI entirely with style props - simply use [object styles](https://emo
 function Intro() {
   return (
     <>
-      <H1 marginTop={0} marginBottom="'1.5rem'">
+      <H1 marginTop={0} marginBottom="1.5rem">
         Styled Matter
       </H1>
-      <P marginTop={0} marginBottom="'1.5rem'">
+      <P marginTop={0} marginBottom="1.5rem">
         Hello, world!
       </P>
       <Button
@@ -119,7 +119,7 @@ function Intro() {
 }
 ```
 
-> **Note:** Values containing periods must be escaped using single quotes - see [Responsive styles](#responsive-styles).
+> **Note:** Values containing commas must be escaped using single quotes - see [Responsive styles](#responsive-styles).
 
 ### Aliases
 
@@ -129,12 +129,12 @@ Free your markup from bloat using aliases. Sourced from popular CSS frameworks, 
 function Intro() {
   return (
     <>
--     <H1 marginTop={0} marginBottom="'1.5rem'">
-+     <H1 mt={0} mb="'1.5rem'">
+-     <H1 marginTop={0} marginBottom="1.5rem">
++     <H1 mt={0} mb="1.5rem">
         Styled Matter
       </H1>
--     <P marginTop={0} marginBottom="'1.5rem'">
-+     <P mt={0} mb="'1.5rem'">
+-     <P marginTop={0} marginBottom="1.5rem">
++     <P mt={0} mb="1.5rem">
         Hello, world!
       </P>
       <Button
@@ -206,11 +206,11 @@ Now, let's update our `<Intro>` component to use values from our theme:
 function Intro() {
   return (
     <>
--     <H1 mt={0} mb="'1.5rem'">
+-     <H1 mt={0} mb="1.5rem">
 +     <H1 mt={0} mb={6}>
         Styled Matter
       </H1>
--     <P mt={0} mb="'1.5rem'">
+-     <P mt={0} mb="1.5rem">
 +     <P mt={0} mb={6}>
         Hello, world!
       </P>
@@ -255,19 +255,19 @@ While this is a slightly contrived example, here's how one might achieve this us
 
 As you can see, it can be hard to tell what's going on here. Each utility is one of _many_ making up the salad. We can do much better though.
 
-Using CSS expressions, we can target any or all breakpoints with a single style prop. We do it by passing a string literal containing values _separated by periods_ - with each period representing the gap between breakpoints:
+Using CSS expressions, we can target any or all breakpoints with a single style prop. We do it by passing a string literal containing values _separated by commas_ - with each comma representing the gap between breakpoints:
 
 ```diff
 <Button
   bg="primary"
   color="white"
   display="inline-block"
-+ fontSize="..lg.xl"
++ fontSize=",,lg,xl"
   fontWeight="bold"
 - px={7}
 - py={4}
-+ px="6...7"
-+ py="3...4"
++ px="6,,,7"
++ py="3,,,4"
   rounded={4}
 >
   Get started
@@ -281,20 +281,20 @@ Using this syntax, we quickly get a feel for how this will look across breakpoin
 
 ### Escaping values
 
-Due to the use of periods when separating values, _values containing periods_ must be wrapped in **single quotes** in order for them to be properly recognized.
+Due to the use of commas when separating values, _values containing commas_ must be wrapped in **single quotes** in order for them to be properly recognized.
 
-👍 Styled Matter will **correctly** recognize two values here, i.e., `1.5rem` and `.75rem`:
+👍 Styled Matter will **correctly** recognize a single value here:
 
 ```jsx
-<Button px="'1.5rem'" py="'.75rem'">
+<Button bg="'rgb(255, 0, 255)'">
   Yep
 </Button>
 ```
 
-👎 Styled Matter will **incorrectly** recognize three values here, i.e., `1`, `5rem`, and `75rem`:
+👎 Styled Matter will **incorrectly** recognize three values here, i.e., `rgb(255`, `0`, and `255)`:
 
 ```jsx
-<Button px="1.5rem" py=".75rem">
+<Button bg="rgb(255, 0, 255)">
   Nope
 </Button>
 ```
@@ -306,7 +306,7 @@ const { Before, After } = UI
 
 render(
   <Button>
-    <Before mr="'.2em'">🚀</Before>
+    <Before mr=".2em">🚀</Before>
     Get started
   </Button>
 )
@@ -325,10 +325,10 @@ const Button = componentize(
     bg="primary"
     color="white"
     display="inline-block"
-    fontSize="..lg.xl"
+    fontSize=",,lg,xl"
     fontWeight="bold"
-    px="6...7"
-    py="3...4"
+    px="6,,,7"
+    py="3,,,4"
     rounded={4}
   />
 )

@@ -23,16 +23,16 @@ export default componentize(
           display="flex"
           flexDirection="column"
           justifyContent="center"
-          mr="'.5ch'"
+          mr=".5ch"
           size="1em"
         >
           <Span
-            border="'.025em solid'"
+            border=".025em solid"
             className="logomark"
             lineHeight={2}
             size="2em"
             textAlign="center"
-            transform="'scale(.5)'"
+            transform="scale(.5)"
           />
         </Span>
         Styled Matter

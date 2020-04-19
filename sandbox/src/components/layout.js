@@ -24,7 +24,7 @@ function Layout({ children }) {
         `}
       />
       <Navbar $logomark={{ children: 'Sm' }} />
-      <Main py="15..16.17">
+      <Main py="15,,16,17">
         <Container>{children}</Container>
       </Main>
     </>
