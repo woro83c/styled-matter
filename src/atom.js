@@ -57,7 +57,7 @@ export default class Atom {
     )
     return jsx(this.element, {
       ...validProps,
-      css: css([this.css(), this.sx(), this.children()]),
+      css: css([this.css(), this.xcss(), this.children()]),
     })
   }
 
@@ -82,7 +82,7 @@ export default class Atom {
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/Syntax#CSS_rulesets}
    */
   cssRuleset(props, breakpoint) {
-    const { children, sx, theme, ...rest } = props
+    const { children, theme, xcss, ...rest } = props
     const result = Object.entries(rest).reduce((prev, [propName, expression]) => {
       const escapedExpression = this.escapeExpression(expression)
       let value = this.cssValue(escapedExpression, breakpoint)
@@ -216,10 +216,10 @@ export default class Atom {
     return hasProperty
   }
 
-  sx() {
-    const { sx } = this.props
-    if (!sx) return null
-    return Object.entries(sx).map(([selector, props]) => ({ [selector]: this.css(props) }))
+  xcss() {
+    const { xcss } = this.props
+    if (!xcss) return null
+    return Object.entries(xcss).map(([selector, props]) => ({ [selector]: this.css(props) }))
   }
 
   children() {
