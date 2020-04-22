@@ -90,16 +90,6 @@ function Intro() {
 
 > **Note:** Some component names have been converted into uppercase - see [acronyms](https://github.com/woro83c/styled-matter/blob/master/src/tags.js#L140).
 
-#### `as` prop
-
-Use the `as` prop to update the underlying element to be rendered:
-
-```jsx
-<Button as="a" href="#getting-started">
-  Get started
-</Button>
-```
-
 ### Style UI
 
 Style your UI entirely with style props - simply use [object styles](https://emotion.sh/docs/object-styles) to write plain old CSS directly in your markup:
@@ -383,6 +373,16 @@ const Button = componentize(
     rounded={4}
   />
 )
+```
+
+### `as` prop
+
+Use the `as` prop to update the underlying element to be rendered:
+
+```jsx
+<Button as="a" href="#getting-started">
+  Get started
+</Button>
 ```
 
 ### Inner props
