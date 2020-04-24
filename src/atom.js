@@ -37,23 +37,21 @@ export default class Atom {
       }
 
       const { key, props } = element
-      const [, value] =
+      let [, value] =
         Object.entries(embeds).find(([propName]) => props.className || ''.includes(propName)) || []
 
       if (value === null) {
         return null
       }
 
+      if (typeof value === 'function') {
+        value = value(props)
+      }
+
       if (isValidElement(value)) {
         return cloneElement(value, { key })
       }
 
-      // Component
-      if (typeof value === 'function') {
-        return jsx(value, { key, ...props })
-      }
-
-      // Props
       const { children, ...rest } = { ...props, ...value }
       return cloneElement(element, rest, this.mapEmbeds(embeds, children))
     })
