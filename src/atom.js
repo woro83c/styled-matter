@@ -14,20 +14,20 @@ export default class Atom {
   parseProps(props) {
     const reducer = (prev, [propName, value]) => {
       if (propName.startsWith('$')) {
-        return { ...prev, innerProps: { ...prev.innerProps, [propName.substring(1)]: value } }
+        return { ...prev, embeds: { ...prev.embeds, [propName.substring(1)]: value } }
       }
 
       return { ...prev, [propName]: value }
     }
 
     const result = Object.entries(props).reduce(reducer, {})
-    const { children, innerProps, ...parsedProps } = result
+    const { children, embeds, ...parsedProps } = result
 
-    return { ...parsedProps, children: this.mapInnerProps(innerProps, children) }
+    return { ...parsedProps, children: this.mapEmbeds(embeds, children) }
   }
 
-  mapInnerProps(innerProps, children) {
-    if (!innerProps) {
+  mapEmbeds(embeds, children) {
+    if (!embeds) {
       return children
     }
 
@@ -36,16 +36,26 @@ export default class Atom {
         return element
       }
 
-      let { props } = element
-      const { className } = props
+      const { key, props } = element
+      const { children, className } = props
+      const [, value] =
+        Object.entries(embeds).find(([propName]) => className || ''.includes(propName)) || []
 
-      if (className) {
-        const [, value] =
-          Object.entries(innerProps).find(([propName]) => className.includes(propName)) || []
-        props = { ...props, ...value }
+      if (value === null) {
+        return null
       }
 
-      return cloneElement(element, props, this.mapInnerProps(innerProps, props.children))
+      if (isValidElement(value)) {
+        return cloneElement(value, { key })
+      }
+
+      // Component
+      if (typeof value === 'function') {
+        return jsx(value, { key, ...props })
+      }
+
+      // Props
+      return cloneElement(element, value, this.mapEmbeds(embeds, children))
     })
 
     return result
