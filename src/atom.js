@@ -8,7 +8,7 @@ export default class Atom {
     this.element = element
     this.props = this.parseProps(props)
     this.config = config
-    this.breakpoints = [0, ...props.theme.breakpoints]
+    this.breakpoints = [0, ...this.props.theme.breakpoints]
   }
 
   parseProps(props) {

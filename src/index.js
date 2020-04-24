@@ -10,12 +10,12 @@ export default function createUI(config) {
   tags.forEach((tag) => {
     const key = acronyms.includes(tag.toUpperCase()) ? tag.toUpperCase() : upperFirst(tag)
 
-    Matter[key] = ({ as: asProp, ...props }) => {
+    Matter[key] = ({ as: asProp, ...rest }) => {
       const theme = useTheme()
       const atom = new Atom(
         asProp || tag,
         {
-          ...props,
+          ...rest,
           theme: { ...defaultTheme, ...theme },
         },
         {
