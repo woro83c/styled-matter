@@ -37,9 +37,8 @@ export default class Atom {
       }
 
       const { key, props } = element
-      const { children, className } = props
       const [, value] =
-        Object.entries(embeds).find(([propName]) => className || ''.includes(propName)) || []
+        Object.entries(embeds).find(([propName]) => props.className || ''.includes(propName)) || []
 
       if (value === null) {
         return null
@@ -55,7 +54,8 @@ export default class Atom {
       }
 
       // Props
-      return cloneElement(element, value, this.mapEmbeds(embeds, children))
+      const { children, ...rest } = { ...props, ...value }
+      return cloneElement(element, rest, this.mapEmbeds(embeds, children))
     })
 
     return result
