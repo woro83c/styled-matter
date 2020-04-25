@@ -1,12 +1,12 @@
-import { useContext } from 'react'
-import { jsx, ThemeContext } from '@emotion/core'
+import { cloneElement, useContext } from 'react'
+import { ThemeContext } from '@emotion/core'
 
-export function componentize({ type, props }) {
+export function componentize(element) {
   function Component(props) {
-    return jsx(type, props)
+    return cloneElement(element, props)
   }
 
-  Component.defaultProps = props
+  Component.defaultProps = element.props
 
   return Component
 }
