@@ -434,9 +434,9 @@ Similarly - using the `link` class - we can override _all_ link elements while s
 
 ```jsx
 <Card
-  $link={(props) => (
-    <Tooltip id={key} title={props.children}>
-      <A {...props} />
+  $link={({ key, ...rest }) => (
+    <Tooltip id={key} title={rest.children}>
+      <A {...rest} />
     </Tooltip>
   )}
 />

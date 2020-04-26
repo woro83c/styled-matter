@@ -46,7 +46,7 @@ export default class Atom {
       }
 
       if (typeof value === 'function') {
-        value = value(props)
+        value = value({ key, ...props })
       }
 
       if (isValidElement(value)) {
