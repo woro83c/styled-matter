@@ -10827,10 +10827,10 @@ style-loader@0.23.1:
     loader-utils "^1.1.0"
     schema-utils "^1.0.0"
 
-styled-matter@^0.3.2:
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/styled-matter/-/styled-matter-0.3.2.tgz#1379f3f85cc92a19a4aa3d306bf2a58777363cc9"
-  integrity sha512-tJ0dIq85DxRsfCmyE2YRZIaVI+skv0SB46YInFdJeYVkH+qBnUFds3aBnswfBIAtkidSOWS78MmRW6vWfc637g==
+styled-matter@^0.3.3:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/styled-matter/-/styled-matter-0.3.3.tgz#23725add3ded8abbd35d7b5469b5868f72df71d7"
+  integrity sha512-6PEKzjEtFQ5bGdUaht9oSoGpbtpAgv/X13cQPGXy4UXz8IHR+9GtjimRRADV/awS0tTWdAeYXl6yTiW0YHpqfA==
   dependencies:
     "@emotion/is-prop-valid" "^0.8.8"
 
