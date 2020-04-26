@@ -44,7 +44,7 @@ function Intro() {
 - Cleaner responsive styles with CSS _expressions_
 - Easy to grok markup using HTML-like primitives
 - Reduced boilerplate - create all primitive UI with a single line
-- Inner props - easily apply one-off styles to nested components
+- Embeds - customize nested JSX elements with ease
 
 ## Getting started
 
@@ -385,34 +385,74 @@ Use the `as` prop to update the underlying element to be rendered:
 </Button>
 ```
 
-### Inner props
+### Embeds
 
-[Composing components can be tricky](https://css-tricks.com/considerations-for-creating-a-card-component/), and refactoring a component for the sake of a one-off style can be especially annoying. Using **inner props** though, we can remedy this - here's how:
+[Composing components can be tricky](https://css-tricks.com/considerations-for-creating-a-card-component/), and refactoring a component for the sake of a one-off customization can be especially annoying. Using **embeds** though, we can remedy this.
 
-Using a `<Card>` component as a base, let's assume we need to update the color for each of its inner link components. To make each link's props _overrideable_, simply add a CSS class to serve as an identifier for later:
+Using a `<Card>` component as a base, let's assume we need to customize its inner link elements. To do this, start by adding some CSS classes to its link elements to serve as identifiers for later.
 
 ```diff
-function Card(props) {
+function Card({ children, ...rest }) {
   return (
-    <Div {...props}>
+    <Div {...rest}>
       <Img src="https://source.unsplash.com/random" alt="">
       <H5>Card title</H5>
+
+      {children}
+
 -     <A href="#">Card link</A>
 -     <A href="#">Another link</A>
-+     <A href="#" className="link">Card link</A>
-+     <A href="#" className="link">Another link</A>
++     <A href="#" className="link card-link">Card link</A>
++     <A href="#" className="link another-link">Another link</A>
     </Div>
   )
 }
 ```
 
-Using this identifier, we can now reach within our `<Card>` component to pass props to each of its inner `link` components. We do this by passing a prop just like any other - except an inner prop _must_ be marked by a single dollar symbol ($) prepended to its name:
+Using these classes, we can now reach within our `<Card>` component to customize each of its inner link elements - here's how:
+
+#### Embed elements
+
+_An embed element is simply one JSX element that replaces another._
+
+To embed an element, pass it as a prop just like any other - except an embed's prop name _must_ be:
+
+- prepended by a single dollar symbol ($), and
+- camel cased
+
+```jsx
+<Card $cardLink={(
+  <Tooltip id="my-tooltip" title="My tooltip">
+    <A href="#">My link</A>
+  </Tooltip>
+)}>
+```
+
+Similarly - using the `link` class - we can override all link elements while still leaning on their initial props:
+
+```jsx
+<Card $link={({ key, ...rest }) => (
+  <Tooltip key={key} id={key} title={rest.children}>
+    <A {...rest} />
+  </Tooltip>
+)}>
+```
+
+Or, we can even remove all links entirely:
+
+```jsx
+<Card $link={null}>
+```
+
+Voilà! No refactor required 😎
+
+#### Embed props
+
+To override element props only, simply pass a props object:
 
 ```jsx
 <Card bg="primary" $link={{ color: 'white' }}>
 ```
-
-Voilà! No refactor required 😎
 
 ## Custom UI
 
