@@ -5,12 +5,12 @@ import tags, { acronyms } from './tags'
 import { componentize, upperFirst, useTheme } from './util'
 
 export default function createUI(config) {
-  const Matter = {}
+  const UI = {}
 
   tags.forEach((tag) => {
     const key = acronyms.includes(tag.toUpperCase()) ? tag.toUpperCase() : upperFirst(tag)
 
-    Matter[key] = ({ as: asProp, ...rest }) => {
+    UI[key] = ({ as: asProp, ...rest }) => {
       const theme = useTheme()
       const atom = new Atom(
         asProp || tag,
@@ -30,11 +30,11 @@ export default function createUI(config) {
 
   // Pseudo-components
   /* eslint-disable prettier/prettier */
-  Matter.Before = function Before() { return null }
-  Matter.After = function After() { return null }
+  UI.Before = function Before() { return null }
+  UI.After = function After() { return null }
   /* eslint-enable */
 
-  return Matter
+  return UI
 }
 
 export { componentize }
