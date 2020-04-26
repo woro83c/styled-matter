@@ -421,27 +421,31 @@ To embed an element, pass it as a prop just like any other - except an embed's p
 - camel cased
 
 ```jsx
-<Card $cardLink={(
-  <Tooltip id="my-tooltip" title="My tooltip">
-    <A href="#">My link</A>
-  </Tooltip>
-)}>
+<Card
+  $cardLink={(
+    <Tooltip id="my-tooltip" title="My tooltip">
+      <A href="#">My link</A>
+    </Tooltip>
+  )}
+/>
 ```
 
 Similarly - using the `link` class - we can override all link elements while still leaning on their initial props:
 
 ```jsx
-<Card $link={({ key, ...rest }) => (
-  <Tooltip key={key} id={key} title={rest.children}>
-    <A {...rest} />
-  </Tooltip>
-)}>
+<Card
+  $link={(props) => (
+    <Tooltip id={key} title={props.children}>
+      <A {...props} />
+    </Tooltip>
+  )}
+/>
 ```
 
 Or, we can even remove all links entirely:
 
 ```jsx
-<Card $link={null}>
+<Card $link={null} />
 ```
 
 Voilà! No refactor required 😎
@@ -451,7 +455,7 @@ Voilà! No refactor required 😎
 To override element props only, simply pass a props object:
 
 ```jsx
-<Card bg="primary" $link={{ color: 'white' }}>
+<Card $link={{ color: 'white' }} />
 ```
 
 ## Custom UI
