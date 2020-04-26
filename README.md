@@ -430,7 +430,7 @@ To embed an element, pass it as a prop just like any other - except an embed's p
 />
 ```
 
-Similarly - using the `link` class - we can override all link elements while still leaning on their initial props:
+Similarly - using the `link` class - we can override _all_ link elements while still leaning on their initial props:
 
 ```jsx
 <Card
