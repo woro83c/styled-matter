@@ -1,13 +1,6 @@
 import { cloneElement, useContext } from 'react'
 import { ThemeContext } from '@emotion/core'
 
-export function camelCase(string) {
-  return (string || '').split(/-/g).reduce((prev, cur, index) => {
-    cur = cur.toLowerCase()
-    return prev + (index ? upperFirst(cur) : cur)
-  }, '')
-}
-
 export function componentize(element) {
   function Component(props) {
     return cloneElement(element, props)
@@ -74,8 +67,4 @@ export function upperFirst(string) {
 
 export function useTheme() {
   return useContext(ThemeContext)
-}
-
-export function words(string) {
-  return (string || '').split(/ /g) || []
 }

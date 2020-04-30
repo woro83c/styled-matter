@@ -415,14 +415,11 @@ Using these classes, we can now reach within our `<Card>` component to customize
 
 _An embed element is simply one JSX element that replaces another._
 
-To embed an element, pass it as a prop just like any other - except an embed's prop name _must_ be:
-
-- prepended by a single dollar symbol ($), and
-- camel cased
+To embed an element, pass it as a prop just like any other - except an embed _must_ be marked by a single dollar symbol ($) prepended to its name:
 
 ```jsx
 <Card
-  $cardLink={(
+  $card-link={(
     <Tooltip id="my-tooltip" title="My tooltip">
       <A href="#">My link</A>
     </Tooltip>

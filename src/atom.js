@@ -1,7 +1,7 @@
 import { Children, cloneElement, isValidElement } from 'react'
 import { jsx, css } from '@emotion/core'
 import isPropValid from '@emotion/is-prop-valid'
-import { camelCase, get, getDisplayName, isNumber, words } from './util'
+import { get, getDisplayName, isNumber } from './util'
 
 export default class Atom {
   constructor(element, props, config) {
@@ -37,9 +37,8 @@ export default class Atom {
       }
 
       const { key, props } = element
-      const parsedClassName = words(props.className).map(camelCase).join(' ')
       let [, value] =
-        Object.entries(embeds).find(([propName]) => parsedClassName.includes(propName)) || []
+        Object.entries(embeds).find(([propName]) => props.className || ''.includes(propName)) || []
 
       if (value === null) {
         return null
