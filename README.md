@@ -51,7 +51,7 @@ function Intro() {
 Install Styled Matter and its dependencies:
 
 ```sh
-npm install styled-matter @emotion-core
+npm install styled-matter @emotion/core
 ```
 
 ### Create UI
