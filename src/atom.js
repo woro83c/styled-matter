@@ -1,6 +1,7 @@
 import { Children, cloneElement, isValidElement } from 'react'
 import { jsx, css } from '@emotion/core'
 import isPropValid from '@emotion/is-prop-valid'
+import cssProperties from './css-properties'
 import { get, getDisplayName, isNumber } from './util'
 
 export default class Atom {
@@ -132,7 +133,7 @@ export default class Atom {
       /**
        * @example undefined
        */
-      if (this.isCssProperty(property)) {
+      if (cssProperties.includes(property)) {
         return [prev, { [property]: this.themeGet(`${property}s.${value}`, value) }]
       }
 
@@ -215,13 +216,6 @@ export default class Atom {
 
   themeGet(path, defaultValue) {
     return get(this.props.theme, path, defaultValue)
-  }
-
-  isCssProperty(propName) {
-    const { style } = document.createElement(null)
-    const hasProperty = Object.prototype.hasOwnProperty.call(style, propName)
-
-    return hasProperty
   }
 
   xcss() {
