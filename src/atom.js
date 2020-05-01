@@ -2,7 +2,7 @@ import { Children, cloneElement, isValidElement } from 'react'
 import { jsx, css } from '@emotion/core'
 import isPropValid from '@emotion/is-prop-valid'
 import cssProperties from './css-properties'
-import { get, getDisplayName, isNumber } from './util'
+import { camelCase, get, getDisplayName, isNumber } from './util'
 
 export default class Atom {
   constructor(element, props, config) {
@@ -10,6 +10,7 @@ export default class Atom {
     this.props = this.parseProps(props)
     this.config = config
     this.breakpoints = [0, ...this.props.theme.breakpoints]
+    this.cssProperties = cssProperties.map(camelCase)
   }
 
   parseProps(props) {
@@ -133,7 +134,7 @@ export default class Atom {
       /**
        * @example undefined
        */
-      if (cssProperties.includes(property)) {
+      if (this.cssProperties.includes(property)) {
         return [prev, { [property]: this.themeGet(`${property}s.${value}`, value) }]
       }
 
