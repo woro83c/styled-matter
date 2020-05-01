@@ -1,7 +1,7 @@
 {
   "name": "styled-matter",
   "version": "0.3.3",
-  "description": "One React component to style them all",
+  "description": "One bit of UI to style them all",
   "main": "dist/index.js",
   "scripts": {
     "dev": "babel src --watch --out-dir dist --presets=@babel/preset-env",
