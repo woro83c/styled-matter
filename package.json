@@ -1,6 +1,6 @@
 {
   "name": "styled-matter",
-  "version": "0.3.4-alpha.1",
+  "version": "0.3.4-alpha.2",
   "description": "One bit of UI to style them all",
   "main": "dist/index.js",
   "scripts": {
