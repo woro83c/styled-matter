@@ -37,4 +37,4 @@ export default function createUI(config) {
   return UI
 }
 
-export { componentize }
+export { componentize, defaultTheme }
