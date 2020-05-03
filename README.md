@@ -469,7 +469,6 @@ export default createUI(config)
 
 > **Note**: For an example, see [default config](https://github.com/woro83c/styled-matter/blob/master/src/default-config.js).
 
-
 ## Roadmap
 
 - Improve documentation
