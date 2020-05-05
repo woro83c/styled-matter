@@ -1,3 +1,4 @@
+import { forwardRef } from 'react'
 import Atom from './atom'
 import defaultConfig from './default-config'
 import defaultTheme from './default-theme'
@@ -10,11 +11,12 @@ export default function createUI(config) {
   tags.forEach((tag) => {
     const key = acronyms.includes(tag.toUpperCase()) ? tag.toUpperCase() : upperFirst(tag)
 
-    UI[key] = ({ as: asProp, ...rest }) => {
+    UI[key] = forwardRef(({ as: asProp, ...rest }, ref) => {
       const theme = useTheme()
       const atom = new Atom(
         asProp || tag,
         {
+          ref,
           ...rest,
           theme: { ...defaultTheme, ...theme },
         },
@@ -25,7 +27,7 @@ export default function createUI(config) {
       )
 
       return atom.create()
-    }
+    })
   })
 
   // Pseudo-components
