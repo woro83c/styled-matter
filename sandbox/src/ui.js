@@ -1,7 +1,7 @@
 import createUI from 'styled-matter'
 
 export default createUI({
-  xcss: {
+  defaultProps: {
     button: {
       bg: 'primary',
       color: 'white',
