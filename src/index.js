@@ -6,9 +6,9 @@ import tags, { acronyms } from './tags'
 import { componentize, upperFirst, useTheme } from './util'
 
 export default function createUI(config = {}) {
-  let { props, xcss } = defaultConfig
+  let { props, defaultProps } = defaultConfig
   props = { ...props, ...config.props }
-  xcss = { ...xcss, ...config.xcss }
+  defaultProps = { ...defaultProps, ...config.defaultProps }
   const UI = {}
 
   tags.forEach((tag) => {
@@ -29,7 +29,7 @@ export default function createUI(config = {}) {
       return atom.create()
     })
 
-    UI[key].defaultProps = xcss[tag]
+    UI[key].defaultProps = defaultProps[tag]
   })
 
   // Pseudo-components
