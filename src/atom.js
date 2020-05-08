@@ -76,15 +76,17 @@ export default class Atom {
     })
   }
 
-  css(props = this.props) {
-    return this.breakpoints.map((breakpoint) => this.cssStatement(props, breakpoint))
+  css(props = this.props, skipValidation) {
+    return this.breakpoints.map((breakpoint) =>
+      this.cssStatement(props, breakpoint, skipValidation)
+    )
   }
 
   /**
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/Syntax#CSS_statements}
    */
-  cssStatement(props, breakpoint) {
-    const ruleset = this.cssRuleset(props, breakpoint)
+  cssStatement(props, breakpoint, skipValidation) {
+    const ruleset = this.cssRuleset(props, breakpoint, skipValidation)
 
     if (breakpoint) {
       return css({ [`@media (min-width: ${breakpoint})`]: ruleset })
@@ -96,7 +98,7 @@ export default class Atom {
   /**
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/Syntax#CSS_rulesets}
    */
-  cssRuleset(props, breakpoint) {
+  cssRuleset(props, breakpoint, skipValidation) {
     const { children, theme, xcss, ...rest } = props
     const result = Object.entries(rest).reduce((prev, [propName, expression]) => {
       const escapedExpression = this.escapeExpression(expression)
@@ -139,7 +141,7 @@ export default class Atom {
       /**
        * @example undefined
        */
-      if (this.cssProperties.includes(property)) {
+      if (skipValidation || this.cssProperties.includes(property)) {
         return [prev, { [property]: this.themeGet(`${property}s.${value}`, value) }]
       }
 
@@ -227,7 +229,7 @@ export default class Atom {
   xcss() {
     const { xcss } = this.props
     if (!xcss) return null
-    return Object.entries(xcss).map(([selector, props]) => ({ [selector]: this.css(props) }))
+    return Object.entries(xcss).map(([selector, props]) => ({ [selector]: this.css(props, true) }))
   }
 
   children() {
