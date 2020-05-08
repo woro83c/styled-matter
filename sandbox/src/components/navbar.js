@@ -1,7 +1,7 @@
 import React from 'react'
 import { componentize } from 'styled-matter'
-import Container from './container'
 import UI from '../ui'
+import Container from './container'
 
 const { A, Header, Span } = UI
 

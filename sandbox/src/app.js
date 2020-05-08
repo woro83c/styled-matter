@@ -1,11 +1,10 @@
-import React from 'react'
 import { ThemeProvider } from 'emotion-theming'
+import React from 'react'
 import Layout from './components/layout'
-import Button from './primitives/button'
 import theme from './theme'
 import UI from './ui'
 
-const { Before, H1, P } = UI
+const { Before, Button, H1, P } = UI
 
 function App() {
   return (

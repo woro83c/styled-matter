@@ -1,5 +1,5 @@
-import { cloneElement, useContext } from 'react'
 import { ThemeContext } from '@emotion/core'
+import { cloneElement, useContext } from 'react'
 
 export function camelCase(string) {
   return (string || '')

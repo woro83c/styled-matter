@@ -12,7 +12,6 @@ export default [
   'bdo',
   'big',
   'blockquote',
-  'body',
   'br',
   'button',
   'canvas',
@@ -48,7 +47,6 @@ export default [
   'header',
   'hgroup',
   'hr',
-  'html',
   'i',
   'iframe',
   'img',
@@ -135,6 +133,9 @@ export default [
   'svg',
   'text',
   'tspan',
+
+  // Custom
+  'global',
 ]
 
 export const acronyms = [
@@ -144,7 +145,6 @@ export const acronyms = [
   'DL',
   'DT',
   'HR',
-  'HTML',
   'LI',
   'OL',
   'RP',

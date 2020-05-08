@@ -1,6 +1,6 @@
-import { Children, cloneElement, isValidElement } from 'react'
-import { jsx, css } from '@emotion/core'
+import { Global, css, jsx } from '@emotion/core'
 import isPropValid from '@emotion/is-prop-valid'
+import { Children, cloneElement, isValidElement } from 'react'
 import cssProperties from './css-properties'
 import { camelCase, get, getDisplayName, isNumber } from './util'
 
@@ -62,9 +62,14 @@ export default class Atom {
   }
 
   create() {
+    if (this.element === 'global') {
+      return jsx(Global, { styles: this.xcss() })
+    }
+
     const validProps = Object.fromEntries(
       Object.entries(this.props).filter(([propName]) => isPropValid(propName))
     )
+
     return jsx(this.element, {
       ...validProps,
       css: css([this.css(), this.xcss(), this.children()]),
