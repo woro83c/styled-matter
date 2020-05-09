@@ -21,6 +21,15 @@
     "import/order": ["error", { "alphabetize": { "order": "asc" } }],
     "no-unused-vars": ["error", { "ignoreRestSiblings": true }],
     "prefer-destructuring": "error",
+    "react/jsx-sort-props": [
+      "error",
+      {
+        "callbacksLast": true,
+        "noSortAlphabetically": true,
+        "reservedFirst": true,
+        "shorthandLast": true
+      }
+    ],
     "react/prop-types": "off",
     "sort-imports": ["error", { "ignoreDeclarationSort": true }]
   }
