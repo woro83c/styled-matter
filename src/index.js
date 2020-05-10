@@ -11,7 +11,7 @@ export default function createUI(config = {}) {
   defaultProps = { ...defaultProps, ...config.defaultProps }
   const UI = {}
 
-  tags.forEach((tag) => {
+  for (const tag of tags) {
     const key = acronyms.includes(tag.toUpperCase()) ? tag.toUpperCase() : upperFirst(tag)
 
     UI[key] = forwardRef(({ as: asProp, ...rest }, ref) => {
@@ -30,7 +30,7 @@ export default function createUI(config = {}) {
     })
 
     UI[key].defaultProps = defaultProps[tag]
-  })
+  }
 
   // Pseudo-components
   /* eslint-disable prettier/prettier */
