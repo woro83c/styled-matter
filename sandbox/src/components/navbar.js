@@ -14,7 +14,9 @@ export default componentize(
         display="flex"
         fontSize={4}
         fontWeight={800}
-        href="https://github.com/woro83c/styled-matter"
+        href="https://styledmatter.com"
+        rel="noopener noreferrer"
+        target="_blank"
         textDecoration="none"
       >
         <Span
