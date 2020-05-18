@@ -1,4 +1,8 @@
-[![Styled Matter logomark](https://styledmatter.com/logomark-dark.svg)](https://styledmatter.com)
+<p>
+  <a href="https://styledmatter.com">
+    <img src="https://styledmatter.com/logomark-dark.svg" alt="Styled Matter logomark" width="63">
+  </a>
+</p>
 
 # Styled Matter
 
