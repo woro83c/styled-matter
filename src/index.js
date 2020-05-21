@@ -32,11 +32,11 @@ export default function createUI(config = {}) {
     UI[key].defaultProps = defaultProps[tag]
   }
 
-  // Pseudo-components
-  /* eslint-disable prettier/prettier */
-  UI.Before = function Before() { return null }
-  UI.After = function After() { return null }
-  /* eslint-enable */
+  // Pseudo-elements
+  UI.Before = () => null
+  UI.After = () => null
+  UI.Before.displayName = 'Before'
+  UI.After.displayName = 'After'
 
   return UI
 }
