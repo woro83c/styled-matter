@@ -77,9 +77,9 @@ export default class Atom {
   }
 
   css(props = this.props, skipValidation) {
-    return this.breakpoints.map((breakpoint) =>
-      this.cssStatement(props, breakpoint, skipValidation)
-    )
+    return this.breakpoints
+      .map((breakpoint) => this.cssStatement(props, breakpoint, skipValidation))
+      .filter(Boolean)
   }
 
   /**
@@ -88,7 +88,7 @@ export default class Atom {
   cssStatement(props, breakpoint, skipValidation) {
     const ruleset = this.cssRuleset(props, breakpoint, skipValidation)
 
-    if (breakpoint) {
+    if (ruleset && breakpoint) {
       return css({ [`@media (min-width: ${breakpoint})`]: ruleset })
     }
 
@@ -148,7 +148,7 @@ export default class Atom {
       return prev
     }, [])
 
-    return result
+    return result.length ? result : null
   }
 
   escapeExpression(expression) {
@@ -233,7 +233,7 @@ export default class Atom {
   }
 
   children() {
-    return Children.toArray(this.props.children).reduce((prev, { type, props }) => {
+    const result = Children.toArray(this.props.children).reduce((prev, { type, props }) => {
       const displayName = getDisplayName(type)
 
       if (displayName === 'Before' || displayName === 'After') {
@@ -248,5 +248,7 @@ export default class Atom {
 
       return prev
     }, [])
+
+    return result.length ? result : null
   }
 }
