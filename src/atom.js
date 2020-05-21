@@ -121,28 +121,28 @@ export default class Atom {
        * @example 'space'
        */
       if (typeof config === 'string') {
-        return [prev, { [property]: this.themeGet(`${config}.${value}`, value) }]
+        return [...prev, { [property]: this.themeGet(`${config}.${value}`, value) }]
       }
 
       /**
        * @example ['space', margin]
        */
       if (Array.isArray(config)) {
-        return [prev, { [property]: vx(...config) }]
+        return [...prev, { [property]: vx(...config) }]
       }
 
       /**
        * @example vx => css({ borderRadius: vx('radii') })
        */
       if (typeof config === 'function') {
-        return [prev, config(vx)]
+        return [...prev, config(vx)]
       }
 
       /**
        * @example undefined
        */
       if (skipValidation || this.cssProperties.includes(property)) {
-        return [prev, { [property]: this.themeGet(`${property}s.${value}`, value) }]
+        return [...prev, { [property]: this.themeGet(`${property}s.${value}`, value) }]
       }
 
       return prev
@@ -243,7 +243,7 @@ export default class Atom {
           .filter((child) => typeof child === 'string')
           .join('')
 
-        return [prev, { [selector]: this.css({ ...rest, content }) }]
+        return [...prev, { [selector]: this.css({ ...rest, content }) }]
       }
 
       return prev
