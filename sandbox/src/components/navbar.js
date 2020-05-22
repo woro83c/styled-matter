@@ -6,7 +6,7 @@ import Container from './container'
 const { A, Header, Span } = UI
 
 export default componentize(
-  <Header borderBottom="1px solid" borderBottomColor="dark" py={5}>
+  <Header borderBottom="1px solid dark" py={5}>
     <Container>
       <A
         alignItems="center"

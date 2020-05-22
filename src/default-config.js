@@ -1,5 +1,5 @@
 import helpers from './helpers'
-import { getSpace } from './util'
+import { getBorder, getSpace } from './util'
 
 export default {
   props: {
@@ -60,20 +60,21 @@ export default {
     'backgroundSize, bgSize': null,
 
     // Border
+    border: ['borders', getBorder],
     borderColor: 'colors',
-    borderTop: 'borders',
+    borderTop: ['borders', getBorder],
     borderTopWidth: 'borderWidths',
     borderTopStyle: 'borderStyles',
     borderTopColor: 'colors',
-    borderBottom: 'borders',
+    borderBottom: ['borders', getBorder],
     borderBottomWidth: 'borderWidths',
     borderBottomStyle: 'borderStyles',
     borderBottomColor: 'colors',
-    borderLeft: 'borders',
+    borderLeft: ['borders', getBorder],
     borderLeftWidth: 'borderWidths',
     borderLeftStyle: 'borderStyles',
     borderLeftColor: 'colors',
-    borderRight: 'borders',
+    borderRight: ['borders', getBorder],
     borderRightWidth: 'borderWidths',
     borderRightStyle: 'borderStyles',
     borderRightColor: 'colors',
