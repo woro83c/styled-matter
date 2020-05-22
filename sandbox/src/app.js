@@ -22,8 +22,7 @@ function App() {
           color="primary"
           fontSize={6}
           href="https://styledmatter.com/getting-started"
-          px={0}
-          py={0}
+          p={0}
           rel="noopener noreferrer"
           target="_blank"
           xcss={{ '&:hover, &:focus': { color: 'magenta.600' } }}

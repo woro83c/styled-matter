@@ -1,33 +1,33 @@
 import helpers from './helpers'
-import { margin } from './util'
+import { getSpace } from './util'
 
 export default {
   props: {
-    'margin, m': ['space', margin],
-    'marginTop, mt': ['space', margin],
-    'marginBottom, mb': ['space', margin],
-    'marginLeft, ml': ['space', margin],
-    'marginRight, mr': ['space', margin],
+    'margin, m': ['space', getSpace],
+    'marginTop, mt': ['space', getSpace],
+    'marginBottom, mb': ['space', getSpace],
+    'marginLeft, ml': ['space', getSpace],
+    'marginRight, mr': ['space', getSpace],
     'marginX, mx': (vx) => ({
-      marginLeft: vx('space', margin),
-      marginRight: vx('space', margin),
+      marginLeft: vx('space', getSpace),
+      marginRight: vx('space', getSpace),
     }),
     'marginY, my': (vx) => ({
-      marginTop: vx('space', margin),
-      marginBottom: vx('space', margin),
+      marginTop: vx('space', getSpace),
+      marginBottom: vx('space', getSpace),
     }),
-    'padding, p': 'space',
-    'paddingTop, pt': 'space',
-    'paddingBottom, pb': 'space',
-    'paddingLeft, pl': 'space',
-    'paddingRight, pr': 'space',
+    'padding, p': ['space', getSpace],
+    'paddingTop, pt': ['space', getSpace],
+    'paddingBottom, pb': ['space', getSpace],
+    'paddingLeft, pl': ['space', getSpace],
+    'paddingRight, pr': ['space', getSpace],
     'paddingX, px': (vx) => ({
-      paddingLeft: vx('space'),
-      paddingRight: vx('space'),
+      paddingLeft: vx('space', getSpace),
+      paddingRight: vx('space', getSpace),
     }),
     'paddingY, py': (vx) => ({
-      paddingTop: vx('space'),
-      paddingBottom: vx('space'),
+      paddingTop: vx('space', getSpace),
+      paddingBottom: vx('space', getSpace),
     }),
 
     // Typography
@@ -103,23 +103,23 @@ export default {
 
     // Position
     inset: (vx) => ({
-      top: vx('space'),
-      bottom: vx('space'),
-      left: vx('space'),
-      right: vx('space'),
+      top: vx('space', getSpace),
+      bottom: vx('space', getSpace),
+      left: vx('space', getSpace),
+      right: vx('space', getSpace),
     }),
     insetX: (vx) => ({
-      left: vx('space'),
-      right: vx('space'),
+      left: vx('space', getSpace),
+      right: vx('space', getSpace),
     }),
     insetY: (vx) => ({
-      top: vx('space'),
-      bottom: vx('space'),
+      top: vx('space', getSpace),
+      bottom: vx('space', getSpace),
     }),
-    top: 'space',
-    bottom: 'space',
-    left: 'space',
-    right: 'space',
+    top: ['space', getSpace],
+    bottom: ['space', getSpace],
+    left: ['space', getSpace],
+    right: ['space', getSpace],
     zIndex: 'zIndices',
 
     // Shadow

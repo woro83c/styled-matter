@@ -49,26 +49,26 @@ export function getDisplayName(Component) {
   return Component.displayName || Component.name || 'Component'
 }
 
+export function getSpace(value, scale, props) {
+  const mapper = (value) => {
+    if (value < 0) {
+      const absolute = Math.abs(value)
+      return `-${get(props, `theme.${scale}.${absolute}`, absolute)}`
+    }
+
+    return get(props, `theme.${scale}.${value}`, value)
+  }
+
+  if (String(value).includes(' ')) {
+    return value.split(' ').filter(Boolean).map(mapper).join(' ')
+  }
+
+  return mapper(value)
+}
+
 export function isNumber(value) {
   const n = Number(value)
   return n === n
-}
-
-export function margin(value, scale, props) {
-  let parsed
-
-  if (value < 0) {
-    const absolute = Math.abs(value)
-    parsed = `-${get(props, `theme.${scale}.${absolute}`, absolute)}`
-  } else {
-    parsed = get(props, `theme.${scale}.${value}`, value)
-  }
-
-  if (isNumber(parsed) && parsed !== 0) {
-    return `${parsed}px`
-  }
-
-  return parsed
 }
 
 export function upperFirst(string) {
