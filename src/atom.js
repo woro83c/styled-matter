@@ -162,6 +162,13 @@ export default class Atom {
       }
 
       /**
+       * @example { listStyle: 'none', paddingLeft: 0 }
+       */
+      if (typeof config === 'object') {
+        return [...prev, config]
+      }
+
+      /**
        * @example undefined
        */
       if (skipValidation || this.cssProperties.includes(property)) {
