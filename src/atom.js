@@ -28,19 +28,42 @@ export default class Atom {
     return { ...parsedProps, children: this.mapEmbeds(embeds, children) }
   }
 
-  mapEmbeds(embeds, children) {
+  mapEmbeds(embeds, children, level = 1) {
     if (!embeds) {
       return children
     }
 
-    const result = Children.toArray(children).map((element) => {
+    const result = Children.map(children, (element, index) => {
       if (!isValidElement(element)) {
         return element
       }
 
       const { key, props } = element
+      const matches = Object.entries(embeds).filter(([propName]) => {
+        if (props.className || ''.includes(propName)) {
+          return true
+        }
+
+        if (level > 1) {
+          return false
+        }
+
+        const conditions = [
+          propName === 'first-child' && index === 0,
+          propName === 'last-child' && index === Children.count(children) - 1,
+          propName === 'odd-child' && index % 2 === 0,
+          propName === 'even-child' && index % 2,
+        ]
+
+        return conditions.filter(Boolean).length
+      })
+
       let [, value] =
-        Object.entries(embeds).find(([propName]) => props.className || ''.includes(propName)) || []
+        [...matches].reverse().find(([, value]) => isValidElement(value) || value === null) || []
+
+      if (value === undefined) {
+        value = matches.reduce((prev, [, value]) => ({ ...prev, ...value }), {})
+      }
 
       if (value === null) {
         return null
@@ -54,8 +77,8 @@ export default class Atom {
         return cloneElement(value, { key })
       }
 
-      const { children, ...rest } = { ...props, ...value }
-      return cloneElement(element, rest, this.mapEmbeds(embeds, children))
+      const { children: innerChildren, ...rest } = { ...props, ...value }
+      return cloneElement(element, rest, this.mapEmbeds(embeds, innerChildren, level + 1))
     })
 
     return result
