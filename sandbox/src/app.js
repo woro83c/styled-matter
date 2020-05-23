@@ -14,7 +14,7 @@ function App() {
           Styled Matter
         </H1>
         <P fontSize={4} mt={0} mb={6}>
-          One bit of UI to style them all
+          One thing to style them all
         </P>
         <Button
           as="a"
