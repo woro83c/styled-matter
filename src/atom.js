@@ -154,7 +154,7 @@ export default class Atom {
       }
 
       /**
-       * @example vx => css({ borderRadius: vx('radii') })
+       * @example vx => ({ borderRadius: vx('radii') })
        */
       if (typeof config === 'function') {
         return [...prev, config(vx)]
