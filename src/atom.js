@@ -40,7 +40,7 @@ export default class Atom {
 
       const { key, props } = element
       const matches = Object.entries(embeds).filter(([propName]) => {
-        if (props.className || ''.includes(propName)) {
+        if ((props.className || '').includes(propName)) {
           return true
         }
 
@@ -58,15 +58,12 @@ export default class Atom {
         return conditions.filter(Boolean).length
       })
 
-      let [, value] =
-        [...matches].reverse().find(([, value]) => isValidElement(value) || value === null) || []
+      const finder = ([, value]) =>
+        value === null || typeof value !== 'object' || isValidElement(value)
+      let [, value] = [...matches].reverse().find(finder) || []
 
-      if (value === undefined) {
-        value = matches.reduce((prev, [, value]) => ({ ...prev, ...value }), {})
-      }
-
-      if (value === null) {
-        return null
+      if (value === null || typeof value === 'string') {
+        return value
       }
 
       if (typeof value === 'function') {
@@ -77,7 +74,9 @@ export default class Atom {
         return cloneElement(value, { key })
       }
 
-      const { children: innerChildren, ...rest } = { ...props, ...value }
+      const embedProps = matches.reduce((prev, [, value]) => ({ ...prev, ...value }), {})
+      const { children: innerChildren, ...rest } = { ...props, ...embedProps }
+
       return cloneElement(element, rest, this.mapEmbeds(embeds, innerChildren, level + 1))
     })
 
