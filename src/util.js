@@ -123,7 +123,7 @@ export function useWindowSize() {
   }
 
   useEffect(() => {
-    if (typeof window !== 'undefined') return
+    if (typeof window === 'undefined') return
 
     function handleResize() {
       setWindowSize(getSize())
