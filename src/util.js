@@ -1,5 +1,5 @@
 import { ThemeContext } from '@emotion/core'
-import { cloneElement, useContext } from 'react'
+import { cloneElement, useContext, useEffect, useState } from 'react'
 
 export function camelCase(string) {
   return (string || '')
@@ -19,6 +19,10 @@ export function componentize(element) {
   Component.defaultProps = element.props
 
   return Component
+}
+
+export function findLast(array, predicate) {
+  return [...array].reverse().find(predicate)
 }
 
 /**
@@ -86,10 +90,48 @@ export function isNumber(value) {
   return n === n
 }
 
+export function pickBy(object, predicate) {
+  return Object.fromEntries(Object.entries(object).filter(predicate))
+}
+
 export function upperFirst(string) {
   return string.charAt(0).toUpperCase() + string.substring(1)
 }
 
+export function useResponsiveEmbed(responsiveEmbeds, defaultElement) {
+  const { width = 0 } = useWindowSize() || {}
+  const { breakpoints } = useTheme()
+  const finder = (embed, index) => width > parseInt([...breakpoints].reverse()[index])
+  const result = findLast(responsiveEmbeds, finder) || defaultElement
+
+  return result
+}
+
 export function useTheme() {
   return useContext(ThemeContext)
+}
+
+export function useWindowSize() {
+  const [windowSize, setWindowSize] = useState(getSize)
+
+  function getSize() {
+    const { innerWidth, innerHeight } = window || {}
+    return {
+      width: innerWidth,
+      height: innerHeight,
+    }
+  }
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') return
+
+    function handleResize() {
+      setWindowSize(getSize())
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  return windowSize
 }

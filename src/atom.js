@@ -1,16 +1,31 @@
 import { Global, css, jsx } from '@emotion/core'
 import isPropValid from '@emotion/is-prop-valid'
-import { Children, cloneElement, isValidElement } from 'react'
+import { Children, cloneElement, createElement, isValidElement } from 'react'
 import cssProperties from './css-properties'
-import { camelCase, get, getDisplayName, isNumber } from './util'
+import {
+  camelCase,
+  findLast,
+  get,
+  getDisplayName,
+  isNumber,
+  pickBy,
+  useResponsiveEmbed,
+} from './util'
 
 export default class Atom {
   constructor(element, props, config) {
     this.element = element
+    this.breakpoints = this.parseBreakpoints(props.theme.breakpoints)
     this.props = this.parseProps(props)
     this.config = config
-    this.breakpoints = [0, ...this.props.theme.breakpoints]
     this.cssProperties = cssProperties.map(camelCase)
+  }
+
+  parseBreakpoints(breakpoints) {
+    return [
+      0,
+      ...breakpoints.map((breakpoint) => (isNumber(breakpoint) ? `${breakpoint}px` : breakpoint)),
+    ]
   }
 
   parseProps(props) {
@@ -25,7 +40,25 @@ export default class Atom {
     const result = Object.entries(props).reduce(reducer, {})
     const { children, embeds, ...parsedProps } = result
 
+    this.embeds = this.parseEmbeds(embeds)
+
     return { ...parsedProps, children: this.mapEmbeds(embeds, children) }
+  }
+
+  parseEmbeds(embeds) {
+    if (!embeds) {
+      return null
+    }
+
+    const validKeys = Object.keys(this.breakpoints).slice(1)
+    const filteredEmbeds = pickBy(embeds, ([propName]) => !validKeys.includes(propName))
+    const responsive = this.breakpoints.slice(1).map((breakpoint, index) => embeds[index + 1])
+
+    if (responsive.filter(Boolean).length) {
+      filteredEmbeds.responsive = responsive
+    }
+
+    return filteredEmbeds
   }
 
   mapEmbeds(embeds, children, level = 1) {
@@ -60,14 +93,14 @@ export default class Atom {
 
       const finder = ([, value]) =>
         value === null || typeof value !== 'object' || isValidElement(value)
-      let [, value] = [...matches].reverse().find(finder) || []
+      let [, value] = findLast(matches, finder) || []
 
       if (value === null || typeof value === 'string') {
         return value
       }
 
       if (typeof value === 'function') {
-        value = value({ key, ...props })
+        value = createElement(value, { key, ...props })
       }
 
       if (isValidElement(value)) {
@@ -88,14 +121,20 @@ export default class Atom {
       return jsx(Global, { styles: this.xcss() })
     }
 
-    const validProps = Object.fromEntries(
-      Object.entries(this.props).filter(([propName]) => isPropValid(propName))
-    )
+    const validProps = pickBy(this.props, ([propName]) => isPropValid(propName))
+    const props = { ...validProps, css: css([this.css(), this.xcss(), this.children()]) }
+    const element = jsx(this.element, props)
 
-    return jsx(this.element, {
-      ...validProps,
-      css: css([this.css(), this.xcss(), this.children()]),
-    })
+    /**
+     * Responsive embeds
+     * @example <Span $1="sm" $2="md" $3="lg">xs</Span>
+     */
+    if (this.embeds && this.embeds.responsive) {
+      const responsiveEmbeds = this.parseResponsiveEmbeds(element)
+      return useResponsiveEmbed(responsiveEmbeds, element)
+    }
+
+    return element
   }
 
   css(props = this.props, skipValidation) {
@@ -279,5 +318,37 @@ export default class Atom {
     }, [])
 
     return result.length ? result : null
+  }
+
+  parseResponsiveEmbeds(defaultElement) {
+    const reducer = (prev, cur) => {
+      if (cur === null || typeof cur === 'string') {
+        return [...prev, cur]
+      }
+
+      if (typeof cur === 'function') {
+        const { props } = findLast(prev, isValidElement) || defaultElement
+        return [...prev, createElement(cur, props)]
+      }
+
+      if (isValidElement(cur)) {
+        return [...prev, cloneElement(cur)]
+      }
+
+      if (typeof cur === 'object') {
+        const last = findLast(prev, isValidElement)
+
+        if (last) {
+          return [...prev, cloneElement(last, cur)]
+        }
+
+        const atom = new Atom(this.element, { ...this.props, ...cur }, this.config)
+        return [...prev, atom.create()]
+      }
+
+      return prev
+    }
+
+    return this.embeds.responsive.reduce(reducer, [])
   }
 }
