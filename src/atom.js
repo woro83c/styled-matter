@@ -322,7 +322,7 @@ export default class Atom {
 
   parseResponsiveEmbeds(defaultElement) {
     const reducer = (prev, cur) => {
-      if (cur === null || typeof cur === 'string') {
+      if (!cur || typeof cur === 'string') {
         return [...prev, cur]
       }
 
@@ -346,7 +346,7 @@ export default class Atom {
         return [...prev, atom.create()]
       }
 
-      return prev
+      return [...prev, cur]
     }
 
     return this.embeds.responsive.reduce(reducer, [])
