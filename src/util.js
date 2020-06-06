@@ -1,5 +1,5 @@
 import { ThemeContext } from '@emotion/core'
-import { cloneElement, useContext, useEffect, useState } from 'react'
+import { cloneElement, useContext, useLayoutEffect, useState } from 'react'
 
 export function camelCase(string) {
   return (string || '')
@@ -98,40 +98,44 @@ export function upperFirst(string) {
   return string.charAt(0).toUpperCase() + string.substring(1)
 }
 
-export function useResponsiveEmbed(responsiveEmbeds, defaultElement) {
-  const { width = 0 } = useWindowSize() || {}
+export function useMediaQueryLists() {
   const { breakpoints } = useTheme()
-  const finder = (embed, index) => width > parseInt([...breakpoints].reverse()[index])
-  const result = findLast(responsiveEmbeds, finder) || defaultElement
 
-  return result
+  if (typeof window === 'undefined') {
+    return null
+  }
+
+  const mapper = (breakpoint) => window.matchMedia(`(min-width: ${breakpoint})`)
+  return breakpoints.map(mapper)
+}
+
+export function useResponsive(elements, defaultElement) {
+  const mediaQueryLists = useMediaQueryLists()
+  const [element, setElement] = useState(getElement)
+
+  function getElement() {
+    if (!mediaQueryLists) {
+      return defaultElement
+    }
+
+    const finder = (embed, index) => embed && [...mediaQueryLists].reverse()[index].matches
+    return findLast(elements, finder) || defaultElement
+  }
+
+  useLayoutEffect(() => {
+    if (!mediaQueryLists) return
+
+    function handler() {
+      return setElement(getElement)
+    }
+
+    mediaQueryLists.forEach((mql) => mql.addListener(handler))
+    return () => mediaQueryLists.forEach((mql) => mql.removeListener(handler))
+  }, [])
+
+  return element
 }
 
 export function useTheme() {
   return useContext(ThemeContext)
-}
-
-export function useWindowSize() {
-  const [windowSize, setWindowSize] = useState(getSize)
-
-  function getSize() {
-    const { innerWidth, innerHeight } = window || {}
-    return {
-      width: innerWidth,
-      height: innerHeight,
-    }
-  }
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return
-
-    function handleResize() {
-      setWindowSize(getSize())
-    }
-
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
-
-  return windowSize
 }

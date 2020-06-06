@@ -2,15 +2,7 @@ import { Global, css, jsx } from '@emotion/core'
 import isPropValid from '@emotion/is-prop-valid'
 import { Children, cloneElement, createElement, isValidElement } from 'react'
 import cssProperties from './css-properties'
-import {
-  camelCase,
-  findLast,
-  get,
-  getDisplayName,
-  isNumber,
-  pickBy,
-  useResponsiveEmbed,
-} from './util'
+import { camelCase, findLast, get, getDisplayName, isNumber, pickBy, useResponsive } from './util'
 
 export default class Atom {
   constructor(element, props, config) {
@@ -131,7 +123,7 @@ export default class Atom {
      */
     if (this.embeds && this.embeds.responsive) {
       const responsiveEmbeds = this.parseResponsiveEmbeds(element)
-      return useResponsiveEmbed(responsiveEmbeds, element)
+      return useResponsive(responsiveEmbeds, element)
     }
 
     return element
