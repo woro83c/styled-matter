@@ -1,6 +1,6 @@
 {
   "name": "styled-matter",
-  "version": "0.5.0-beta",
+  "version": "0.5.0-beta.1",
   "description": "One thing to style them all",
   "main": "dist/index.js",
   "scripts": {
