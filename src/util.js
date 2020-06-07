@@ -118,8 +118,11 @@ export function useResponsive(elements, defaultElement) {
       return defaultElement
     }
 
-    const finder = (embed, index) => embed && [...mediaQueryLists].reverse()[index].matches
-    return findLast(elements, finder) || defaultElement
+    const finder = (element, index) =>
+      element !== undefined && [...mediaQueryLists].reverse()[index].matches
+    const result = findLast(elements, finder)
+
+    return result !== undefined ? result : defaultElement
   }
 
   useLayoutEffect(() => {

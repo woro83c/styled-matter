@@ -46,7 +46,7 @@ export default class Atom {
     const filteredEmbeds = pickBy(embeds, ([propName]) => !validKeys.includes(propName))
     const responsive = this.breakpoints.slice(1).map((breakpoint, index) => embeds[index + 1])
 
-    if (responsive.filter(Boolean).length) {
+    if (responsive.filter((embed) => embed !== undefined).length) {
       filteredEmbeds.responsive = responsive
     }
 
@@ -92,7 +92,7 @@ export default class Atom {
       }
 
       if (typeof value === 'function') {
-        value = createElement(value, { key, ...props })
+        return createElement(value, { key, ...props })
       }
 
       if (isValidElement(value)) {
