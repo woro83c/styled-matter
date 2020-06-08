@@ -45,8 +45,9 @@ export default class Atom {
     const validKeys = Object.keys(this.breakpoints).slice(1)
     const filteredEmbeds = pickBy(embeds, ([propName]) => !validKeys.includes(propName))
     const responsive = this.breakpoints.slice(1).map((breakpoint, index) => embeds[index + 1])
+    const isValidEmbed = (embed) => embed !== undefined
 
-    if (responsive.filter((embed) => embed !== undefined).length) {
+    if (responsive.filter(isValidEmbed).length) {
       filteredEmbeds.responsive = responsive
     }
 
