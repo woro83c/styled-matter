@@ -85,7 +85,7 @@ export default class Atom {
       })
 
       const finder = ([, value]) => this.isValidEmbed(value)
-      let [, value] = findLast(matches, finder) || []
+      const [, value] = findLast(matches, finder) || []
       const embed = this.parseEmbed(value, { key, ...props })
 
       if (this.isValidEmbed(embed)) {
@@ -102,7 +102,7 @@ export default class Atom {
       const before = this.parseEmbed(embeds.before, { key: 'before' })
       const after = this.parseEmbed(embeds.after, { key: 'after' })
 
-      return [before, ...result, after].filter(Boolean)
+      return [before, ...result, after].filter(this.isValidEmbed)
     }
 
     return result
@@ -125,7 +125,15 @@ export default class Atom {
   }
 
   isValidEmbed(value) {
-    return value === null || (value && typeof value !== 'object') || isValidElement(value)
+    const conditions = [
+      value === null,
+      typeof value === 'number',
+      typeof value === 'string',
+      typeof value === 'function',
+      isValidElement(value),
+    ]
+
+    return conditions.filter(Boolean).length
   }
 
   create() {
