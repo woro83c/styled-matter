@@ -84,8 +84,7 @@ export default class Atom {
         return conditions.filter(Boolean).length
       })
 
-      const finder = ([, value]) =>
-        value === null || typeof value !== 'object' || isValidElement(value)
+      const finder = ([, value]) => this.isValidEmbed(value)
       let [, value] = findLast(matches, finder) || []
       const embed = this.parseEmbed(value, { key, ...props })
 
@@ -126,7 +125,7 @@ export default class Atom {
   }
 
   isValidEmbed(value) {
-    return (value !== undefined && typeof value !== 'object') || isValidElement(value)
+    return value === null || (value && typeof value !== 'object') || isValidElement(value)
   }
 
   create() {
@@ -342,18 +341,18 @@ export default class Atom {
         return [...prev, embed]
       }
 
-      if (typeof cur === 'object') {
+      if (typeof embed === 'object') {
         const last = findLast(prev, isValidElement)
 
         if (last) {
-          return [...prev, cloneElement(last, cur)]
+          return [...prev, cloneElement(last, embed)]
         }
 
-        const atom = new Atom(this.element, { ...this.props, ...cur }, this.config)
+        const atom = new Atom(this.element, { ...this.props, ...embed }, this.config)
         return [...prev, atom.create()]
       }
 
-      return [...prev, cur]
+      return [...prev, embed]
     }
 
     return this.embeds.responsive.reduce(reducer, [])
