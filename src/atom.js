@@ -34,7 +34,7 @@ export default class Atom {
 
     this.embeds = this.parseEmbeds(embeds)
 
-    return { ...parsedProps, children: this.mapEmbeds(embeds, children) }
+    return { ...parsedProps, children: this.mapEmbeds(this.embeds, children) }
   }
 
   parseEmbeds(embeds) {
@@ -87,17 +87,10 @@ export default class Atom {
       const finder = ([, value]) =>
         value === null || typeof value !== 'object' || isValidElement(value)
       let [, value] = findLast(matches, finder) || []
+      const embed = this.parseEmbed(value, { key, ...props })
 
-      if (value === null || typeof value === 'string') {
-        return value
-      }
-
-      if (typeof value === 'function') {
-        return createElement(value, { key, ...props })
-      }
-
-      if (isValidElement(value)) {
-        return cloneElement(value, { key })
+      if (this.isValidEmbed(embed)) {
+        return embed
       }
 
       const embedProps = matches.reduce((prev, [, value]) => ({ ...prev, ...value }), {})
@@ -107,6 +100,26 @@ export default class Atom {
     })
 
     return result
+  }
+
+  parseEmbed(embed, props) {
+    if (embed === null || typeof embed === 'number' || typeof embed === 'string') {
+      return embed
+    }
+
+    if (typeof embed === 'function') {
+      return createElement(embed, props)
+    }
+
+    if (isValidElement(embed)) {
+      return cloneElement(embed, { key: props.key })
+    }
+
+    return
+  }
+
+  isValidEmbed(value) {
+    return (value !== undefined && typeof value !== 'object') || isValidElement(value)
   }
 
   create() {
@@ -315,17 +328,11 @@ export default class Atom {
 
   parseResponsiveEmbeds(defaultElement) {
     const reducer = (prev, cur) => {
-      if (!cur || typeof cur === 'string') {
-        return [...prev, cur]
-      }
+      const { props } = findLast(prev, isValidElement) || defaultElement
+      const embed = this.parseEmbed(cur, props)
 
-      if (typeof cur === 'function') {
-        const { props } = findLast(prev, isValidElement) || defaultElement
-        return [...prev, createElement(cur, props)]
-      }
-
-      if (isValidElement(cur)) {
-        return [...prev, cloneElement(cur)]
+      if (this.isValidEmbed(embed)) {
+        return [...prev, embed]
       }
 
       if (typeof cur === 'object') {
