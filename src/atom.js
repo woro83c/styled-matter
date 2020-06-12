@@ -45,9 +45,9 @@ export default class Atom {
     const validKeys = Object.keys(this.breakpoints).slice(1)
     const filteredEmbeds = pickBy(embeds, ([propName]) => !validKeys.includes(propName))
     const responsive = this.breakpoints.slice(1).map((breakpoint, index) => embeds[index + 1])
-    const isValidEmbed = (embed) => embed !== undefined
+    const isDefined = (value) => value !== undefined
 
-    if (responsive.filter(isValidEmbed).length) {
+    if (responsive.filter(isDefined).length) {
       filteredEmbeds.responsive = responsive
     }
 
@@ -98,6 +98,13 @@ export default class Atom {
 
       return cloneElement(element, rest, this.mapEmbeds(embeds, innerChildren, level + 1))
     })
+
+    if (level === 1) {
+      const before = this.parseEmbed(embeds.before, { key: 'before' })
+      const after = this.parseEmbed(embeds.after, { key: 'after' })
+
+      return [before, ...result, after].filter(Boolean)
+    }
 
     return result
   }
